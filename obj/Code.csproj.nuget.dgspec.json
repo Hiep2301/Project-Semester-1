@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VTC Academy\\Kỳ 1\\Project\\Code\\Code.csproj": {}
+    "D:\\VTC Academy\\Kỳ 1\\Project Semester 1\\Code\\Code.csproj": {}
   },
   "projects": {
-    "D:\\VTC Academy\\Kỳ 1\\Project\\Code\\Code.csproj": {
+    "D:\\VTC Academy\\Kỳ 1\\Project Semester 1\\Code\\Code.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VTC Academy\\Kỳ 1\\Project\\Code\\Code.csproj",
+        "projectUniqueName": "D:\\VTC Academy\\Kỳ 1\\Project Semester 1\\Code\\Code.csproj",
         "projectName": "Code",
-        "projectPath": "D:\\VTC Academy\\Kỳ 1\\Project\\Code\\Code.csproj",
+        "projectPath": "D:\\VTC Academy\\Kỳ 1\\Project Semester 1\\Code\\Code.csproj",
         "packagesPath": "C:\\Users\\ngotr\\.nuget\\packages\\",
-        "outputPath": "D:\\VTC Academy\\Kỳ 1\\Project\\Code\\obj\\",
+        "outputPath": "D:\\VTC Academy\\Kỳ 1\\Project Semester 1\\Code\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ngotr\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -37,6 +37,12 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Mysql.data": {
+              "target": "Package",
+              "version": "[8.0.30, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

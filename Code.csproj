@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mysql.data" Version="8.0.30" />
+  </ItemGroup>
+
 </Project>
