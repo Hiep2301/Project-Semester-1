@@ -13,7 +13,7 @@ namespace Persistence
 
         }
 
-        public Book(int bookId, int categoryId, string? bookName, decimal bookPrice, string? bookDescription)
+        public Book(int bookId, int categoryId, string bookName, decimal bookPrice, string bookDescription)
         {
             this.bookId = bookId;
             this.categoryId = categoryId;
@@ -47,7 +47,7 @@ namespace Persistence
             return this.bookName;
         }
 
-        public void setBookName(string? bookName)
+        public void setBookName(string bookName)
         {
             this.bookName = bookName;
         }
@@ -67,7 +67,7 @@ namespace Persistence
             return this.bookDescription;
         }
 
-        public void setBookDescription(string? bookDescription)
+        public void setBookDescription(string bookDescription)
         {
             this.bookDescription = bookDescription;
         }

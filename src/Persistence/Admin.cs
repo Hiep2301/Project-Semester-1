@@ -25,7 +25,7 @@ namespace Persistence
             return this.firstName;
         }
 
-        public void setFirstName(string? firstName)
+        public void setFirstName(string firstName)
         {
             this.firstName = firstName;
         }
@@ -35,7 +35,7 @@ namespace Persistence
             return this.lastName;
         }
 
-        public void setLastName(string? lastName)
+        public void setLastName(string lastName)
         {
             this.lastName = lastName;
         }
@@ -45,7 +45,7 @@ namespace Persistence
             return this.phone;
         }
 
-        public void setPhone(string? phone)
+        public void setPhone(string phone)
         {
             this.phone = phone;
         }

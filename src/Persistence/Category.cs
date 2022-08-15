@@ -10,7 +10,7 @@ namespace Persistence
 
         }
 
-        public Category(int categoryId, string? categoryName)
+        public Category(int categoryId, string categoryName)
         {
             this.categoryId = categoryId;
             this.categoryName = categoryName;
@@ -31,7 +31,7 @@ namespace Persistence
             return this.categoryName;
         }
 
-        public void setCategoryName(string? categoryName)
+        public void setCategoryName(string categoryName)
         {
             this.categoryName = categoryName;
         }

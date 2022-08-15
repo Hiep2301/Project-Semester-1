@@ -10,7 +10,7 @@ namespace Persistence
             return this.userName;
         }
 
-        public void setUserName(string? userName)
+        public void setUserName(string userName)
         {
             this.userName = userName;
         }
@@ -20,7 +20,7 @@ namespace Persistence
             return this.password;
         }
 
-        public void setPassword(string? password)
+        public void setPassword(string password)
         {
             this.password = password;
         }
