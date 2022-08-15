@@ -3,8 +3,8 @@ using Persistence;
 
 namespace DAL
 {
-    public class AdminDAL
+    public class CategoryDAL
     {
-
+        
     }
 }
