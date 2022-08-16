@@ -64,7 +64,7 @@ namespace Persistence
 
         public override string ToString()
         {
-            return $"{this.firstName} {this.lastName} {this.phone} {this.address}";
+            return $"{this.getUserName()} {this.getPassword()} {this.firstName} {this.lastName} {this.phone} {this.address}";
         }
 
     }
