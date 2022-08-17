@@ -16,5 +16,15 @@ namespace BL
         {
             return customerDal.GetCustomerById(DbConfig.OpenConnection(), id);
         }
+
+        public Customer GetCustomerByName(string name)
+        {
+            return customerDal.GetCustomerByName(DbConfig.OpenConnection(), name);
+        }
+
+        public List<Customer> GetAllCustomer()
+        {
+            return customerDal.GetAllCustomer(DbConfig.OpenConnection());
+        }
     }
 }

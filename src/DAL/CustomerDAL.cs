@@ -3,7 +3,7 @@ using Persistence;
 
 namespace DAL
 {
-    public class CustomerDAL
+    public class CustomerDAL : ICustomerDAL
     {
         public Customer Login(MySqlConnection connection, Customer customer)
         {
@@ -64,6 +64,53 @@ namespace DAL
                 DbConfig.CloseConnection();
             }
             return _customer;
+        }
+
+        public Customer GetCustomerByName(MySqlConnection connection, string name)
+        {
+            MySqlCommand cmd = new MySqlCommand("sp_getCustomerByName", connection);
+            Customer _customer = null!;
+            try
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@_customerName", name);
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        _customer = GetCustomer(reader);
+                    }
+                    reader.Close();
+                }
+            }
+            finally
+            {
+                DbConfig.CloseConnection();
+            }
+            return _customer;
+        }
+
+        public List<Customer> GetAllCustomer(MySqlConnection connection)
+        {
+            MySqlCommand cmd = new MySqlCommand("sp_getAllCustomer", connection);
+            List<Customer> list = null!;
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                try
+                {
+                    list = new List<Customer>();
+                    while (reader.Read())
+                    {
+                        list.Add(GetCustomer(reader));
+                    }
+                    reader.Close();
+                }
+                finally
+                {
+                    DbConfig.CloseConnection();
+                }
+            }
+            return list;
         }
     }
 }

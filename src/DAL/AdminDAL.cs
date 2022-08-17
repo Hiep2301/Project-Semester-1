@@ -3,7 +3,7 @@ using Persistence;
 
 namespace DAL
 {
-    public class AdminDAL
+    public class AdminDAL : IAdminDAL
     {
         public Admin Login(MySqlConnection connection, Admin admin)
         {

@@ -4,7 +4,7 @@ namespace Persistence
     {
         private int customerId;
         private string? customerName;
-        private string? phone;
+        private string? phone; 
         private string? address;
 
         public Customer()
