@@ -1,22 +1,39 @@
 ﻿using Persistence;
 using BL;
 
+Console.InputEncoding = System.Text.Encoding.Unicode;
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+
 Admin admin = new Admin();
-AdminBL adminBL = new AdminBL();
-// User customer = new Customer("huy123", "huy123", "Huy", "Nguyen", "123456789", "Hà Nội");
+Admin _admin = new Admin();
+AdminBL adminBl = new AdminBL();
 
-// Console.WriteLine($"{customer}");
+Customer customer = new Customer();
+Customer _customer = new Customer();
+CustomerBL customerBl = new CustomerBL();
 
-admin.setUserName("admin");
-admin.setPassword("admin");
-Admin _admin = adminBL.Login(admin);
-Console.WriteLine(_admin.getUserName());
-Console.WriteLine(_admin.getPassword());
-// if (_admin.getUserName() == "admin" && _admin.getPassword() == "admin")
-// {
-//     Console.WriteLine("Thành công");
-// }
-// else
-// {
-//     Console.WriteLine("Thất bại");
-// }
+Console.Write("Input username: ");
+admin.setUserName(Console.ReadLine() ?? "");
+Console.Write("Input password: ");
+admin.setPassword(Console.ReadLine() ?? "");
+_admin = adminBl.Login(admin);
+
+try
+{
+    if (admin.getUserName() == _admin.getUserName() && admin.getPassword() == _admin.getPassword())
+    {
+        Console.WriteLine("Thành công");
+    }
+}
+catch
+{
+    Console.WriteLine("Thất bại");
+}
+
+Console.Write("Input id to search customer: ");
+int id;
+int.TryParse(Console.ReadLine(), out id);
+customer.setCustomerId(id);
+
+_customer = customerBl.GetCustomerById(customer.getCustomerId());
+Console.WriteLine($"{_customer}");

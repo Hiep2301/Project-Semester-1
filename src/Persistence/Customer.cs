@@ -2,8 +2,8 @@ namespace Persistence
 {
     public class Customer : User
     {
-        private string? firstName;
-        private string? lastName;
+        private int customerId;
+        private string? customerName;
         private string? phone;
         private string? address;
 
@@ -12,34 +12,34 @@ namespace Persistence
 
         }
 
-        public Customer(string userName, string password, string firstName, string lastName, string phone, string address)
+        public Customer(string userName, string password, int customerId, string? customerName, string? phone, string? address)
         {
             this.setUserName(userName);
             this.setPassword(password);
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.customerId = customerId;
+            this.customerName = customerName;
             this.phone = phone;
             this.address = address;
         }
 
-        public string? getFirstName()
+        public int getCustomerId()
         {
-            return this.firstName;
+            return this.customerId;
         }
 
-        public void setFirstName(string firstName)
+        public void setCustomerId(int customerId)
         {
-            this.firstName = firstName;
+            this.customerId = customerId;
         }
 
-        public string? getLastName()
+        public string? getCustomerName()
         {
-            return this.lastName;
+            return this.customerName;
         }
 
-        public void setLastName(string lastName)
+        public void setCustomerName(string? customerName)
         {
-            this.lastName = lastName;
+            this.customerName = customerName;
         }
 
         public string? getPhone()
@@ -47,7 +47,7 @@ namespace Persistence
             return this.phone;
         }
 
-        public void setPhone(string phone)
+        public void setPhone(string? phone)
         {
             this.phone = phone;
         }
@@ -57,14 +57,14 @@ namespace Persistence
             return this.address;
         }
 
-        public void setAddress(string address)
+        public void setAddress(string? address)
         {
             this.address = address;
         }
 
         public override string ToString()
         {
-            return $"{this.getUserName()} {this.getPassword()} {this.firstName} {this.lastName} {this.phone} {this.address}";
+            return $"{this.getUserName()} {this.getPassword()} {this.customerId} {this.customerName} {this.phone} {this.address}";
         }
 
     }

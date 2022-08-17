@@ -12,6 +12,12 @@ namespace Persistence
 
         }
 
+        public Admin(string userName, string password)
+        {
+            this.setUserName(userName);
+            this.setPassword(password);
+        }
+
         public Admin(string userName, string password, int adminId, string firstName, string lastName, string phone)
         {
             this.setUserName(userName);
@@ -64,7 +70,7 @@ namespace Persistence
 
         public override string ToString()
         {
-            return $"{this.getUserName()} {this.getPassword()} {this.firstName} {this.lastName} {this.phone}";
+            return $"{this.getUserName()} {this.getPassword()} {this.adminId} {this.firstName} {this.lastName} {this.phone}";
         }
     }
 }

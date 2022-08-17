@@ -9,8 +9,7 @@ namespace BL
 
         public Admin Login(Admin admin)
         {
-            return adminDal.Login(admin);
+            return adminDal.Login(DbConfig.OpenConnection(), admin);
         }
-
     }
 }
