@@ -66,19 +66,20 @@ namespace DAL
             return _customer;
         }
 
-        public Customer GetCustomerByName(MySqlConnection connection, string name)
+        public List<Customer> GetCustomerByName(MySqlConnection connection, string name)
         {
             MySqlCommand cmd = new MySqlCommand("sp_getCustomerByName", connection);
-            Customer _customer = null!;
+            List<Customer> list = null!;
             try
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@_customerName", name);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    if (reader.Read())
+                    list = new List<Customer>();
+                    while (reader.Read())
                     {
-                        _customer = GetCustomer(reader);
+                        list.Add(GetCustomer(reader));
                     }
                     reader.Close();
                 }
@@ -87,7 +88,7 @@ namespace DAL
             {
                 DbConfig.CloseConnection();
             }
-            return _customer;
+            return list;
         }
 
         public List<Customer> GetAllCustomer(MySqlConnection connection)

@@ -17,7 +17,7 @@ namespace BL
             return customerDal.GetCustomerById(DbConfig.OpenConnection(), id);
         }
 
-        public Customer GetCustomerByName(string name)
+        public List<Customer> GetCustomerByName(string name)
         {
             return customerDal.GetCustomerByName(DbConfig.OpenConnection(), name);
         }

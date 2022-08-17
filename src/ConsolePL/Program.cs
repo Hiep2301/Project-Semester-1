@@ -24,6 +24,26 @@ List<Customer> listCustomer = new List<Customer>();
 //     if (admin.getUserName() == _admin.getUserName() && admin.getPassword() == _admin.getPassword())
 //     {
 //         Console.WriteLine("Thành công");
+//         Console.WriteLine($"{_admin}");
+//     }
+// }
+// catch
+// {
+//     Console.WriteLine("Thất bại");
+// }
+
+// Console.Write("Input username: ");
+// customer.setUserName(Console.ReadLine() ?? "");
+// Console.Write("Input password: ");
+// customer.setPassword(Console.ReadLine() ?? "");
+// _customer = customerBl.Login(customer);
+
+// try
+// {
+//     if (customer.getUserName() == _customer.getUserName() && customer.getPassword() == _customer.getPassword())
+//     {
+//         Console.WriteLine("Thành công");
+//         Console.WriteLine($"{_customer}");
 //     }
 // }
 // catch
@@ -35,18 +55,20 @@ List<Customer> listCustomer = new List<Customer>();
 // int id;
 // int.TryParse(Console.ReadLine(), out id);
 // customer.setCustomerId(id);
-
 // _customer = customerBl.GetCustomerById(customer.getCustomerId());
 // Console.WriteLine($"{_customer}");
 
 // Console.Write("Input name to search customer: ");
 // customer.setCustomerName(Console.ReadLine() ?? "");
+// listCustomer = customerBl.GetCustomerByName(customer.getCustomerName() ?? "");
+// foreach (var item in listCustomer)
+// {
+//     Console.WriteLine(item);
+// }
 
-// _customer = customerBl.GetCustomerByName(customer.getCustomerName() ?? "");
-// Console.WriteLine($"{_customer}");
+// listCustomer = customerBl.GetAllCustomer();
+// foreach (var item in listCustomer)
+// {
+//     Console.WriteLine(item);
+// }
 
-listCustomer = customerBl.GetAllCustomer();
-foreach (var item in listCustomer)
-{
-    Console.WriteLine(item);
-}
