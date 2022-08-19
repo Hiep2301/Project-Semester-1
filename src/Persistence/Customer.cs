@@ -4,7 +4,7 @@ namespace Persistence
     {
         private int customerId;
         private string? customerName;
-        private string? phone; 
+        private string? phone;
         private string? address;
 
         public Customer()
@@ -64,8 +64,7 @@ namespace Persistence
 
         public override string ToString()
         {
-            return $"{this.getUserName()} {this.getPassword()} {this.customerId} {this.customerName} {this.phone} {this.address}";
+            return $"{this.getUserName()} - {this.getPassword()} - {this.getCustomerId()} - {this.getCustomerName()} {this.getPhone()} - {this.getAddress()}";
         }
-
     }
 }

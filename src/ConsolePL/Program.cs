@@ -1,8 +1,11 @@
 ﻿using Persistence;
 using BL;
 
+// char option;
 Console.InputEncoding = System.Text.Encoding.Unicode;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
+int id;
+decimal price;
 
 Admin admin = new Admin();
 Admin _admin = new Admin();
@@ -13,12 +16,51 @@ Customer _customer = new Customer();
 CustomerBL customerBl = new CustomerBL();
 List<Customer> listCustomer = new List<Customer>();
 
+Book book = new Book();
+Book _book = new Book();
+BookBL bookBl = new BookBL();
+List<Book> listBook = new List<Book>();
+
+// ------------- thêm sách
+// Book InputBook(Book book)
+// {
+//     Console.Write("Input book id: ");
+//     int.TryParse(Console.ReadLine(), out id);
+//     book.setBookId(id);
+//     Console.Write("Input category id: ");
+//     int.TryParse(Console.ReadLine(), out id);
+//     book.setCategoryId(id);
+//     Console.Write("Input book name: ");
+//     book.setBookName(Console.ReadLine() ?? "");
+//     Console.Write("Input book price: ");
+//     decimal.TryParse(Console.ReadLine(), out price);
+//     book.setBookPrice(price);
+//     Console.Write("Input book description: ");
+//     book.setBookDescription(Console.ReadLine() ?? "");
+//     Console.Write("Input author name: ");
+//     book.setAuthorname(Console.ReadLine() ?? "");
+//     return book;
+// }
+// if (adminBl.InsertBook(InputBook(book)))
+// {
+//     Console.WriteLine("Thêm thành công");
+// }
+// else
+// {
+//     Console.WriteLine("Thêm thất bại");
+// }
+
+// ------------- xóa sách theo id
+// Console.WriteLine("Input id to delete: ");
+// int.TryParse(Console.ReadLine(), out id);
+// adminBl.DeleteBookById(id);
+
+// ------------- đăng nhập admin
 // Console.Write("Input username: ");
 // admin.setUserName(Console.ReadLine() ?? "");
 // Console.Write("Input password: ");
 // admin.setPassword(Console.ReadLine() ?? "");
 // _admin = adminBl.Login(admin);
-
 // try
 // {
 //     if (admin.getUserName() == _admin.getUserName() && admin.getPassword() == _admin.getPassword())
@@ -32,12 +74,12 @@ List<Customer> listCustomer = new List<Customer>();
 //     Console.WriteLine("Thất bại");
 // }
 
+// ------------- đăng nhập khách hàng
 // Console.Write("Input username: ");
 // customer.setUserName(Console.ReadLine() ?? "");
 // Console.Write("Input password: ");
 // customer.setPassword(Console.ReadLine() ?? "");
 // _customer = customerBl.Login(customer);
-
 // try
 // {
 //     if (customer.getUserName() == _customer.getUserName() && customer.getPassword() == _customer.getPassword())
@@ -51,6 +93,7 @@ List<Customer> listCustomer = new List<Customer>();
 //     Console.WriteLine("Thất bại");
 // }
 
+// ------------- tìm kiếm khách theo id
 // Console.Write("Input id to search customer: ");
 // int id;
 // int.TryParse(Console.ReadLine(), out id);
@@ -58,6 +101,7 @@ List<Customer> listCustomer = new List<Customer>();
 // _customer = customerBl.GetCustomerById(customer.getCustomerId());
 // Console.WriteLine($"{_customer}");
 
+// ------------- tìm kiếm khách theo tên
 // Console.Write("Input name to search customer: ");
 // customer.setCustomerName(Console.ReadLine() ?? "");
 // listCustomer = customerBl.GetCustomerByName(customer.getCustomerName() ?? "");
@@ -66,9 +110,104 @@ List<Customer> listCustomer = new List<Customer>();
 //     Console.WriteLine(item);
 // }
 
+// ------------- hiển thị tất cả khách hàng
 // listCustomer = customerBl.GetAllCustomer();
 // foreach (var item in listCustomer)
 // {
 //     Console.WriteLine(item);
 // }
 
+// ------------- hiển thị tất cả sách
+// listBook = bookBl.GetAllBook();
+// foreach (var item in listBook)
+// {
+//     Console.WriteLine(item);
+// }
+
+// MainMenu();
+
+// void Line()
+// {
+//     Console.WriteLine("==============================");
+// }
+
+// void WaitForButton(string msg)
+// {
+//     Console.Write(msg);
+//     Console.ReadKey();
+// }
+
+// int Menu(string[] menu, string name)
+// {
+//     Console.Clear();
+//     Line();
+//     Console.WriteLine(name);
+//     Line();
+//     for (int i = 0; i < menu.Length; i++)
+//     {
+//         Console.WriteLine($"{i + 1}. {menu[i]}");
+//     }
+//     Line();
+//     int choice;
+//     do
+//     {
+//         Console.Write("Your choice: ");
+//         int.TryParse(Console.ReadLine(), out choice);
+//     } while (choice < 1 || choice > menu.Length);
+//     return choice;
+// }
+
+// void MainMenu()
+// {
+//     string[] menu = { "Add product", "Search product by name", "Search product by id", "Display all products", "Update product information", "Delete product", "Exit" };
+//     string name = "Products Management System";
+//     int choice;
+//     do
+//     {
+//         choice = Menu(menu, name);
+//         switch (choice)
+//         {
+//             case 1:
+//                 while (true)
+//                 {
+
+//                     Console.Write("Do you want to continue?(Y/N): ");
+//                     option = Convert.ToChar(Console.ReadLine() ?? "");
+//                     if (option == 'n' || option == 'N')
+//                     {
+//                         break;
+//                     }
+//                 }
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             case 2:
+
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             case 3:
+
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             case 4:
+
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             case 5:
+
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             case 6:
+
+//                 WaitForButton("Press any key to continue");
+//                 break;
+
+//             default:
+//                 break;
+//         }
+//     } while (choice != menu.Length);
+// }

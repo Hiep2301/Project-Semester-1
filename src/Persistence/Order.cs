@@ -13,14 +13,15 @@ namespace Persistence
         private int orderId;
         private int customerId;
         private string? orderDate;
-        private string? orderStatus;
+        private int orderStatus;
+        private List<Book>? listBook;
 
         public Order()
         {
 
         }
 
-        public Order(int orderId, int customerId, string orderDate, string orderStatus)
+        public Order(int orderId, int customerId, string orderDate, int orderStatus)
         {
             this.orderId = orderId;
             this.customerId = customerId;
@@ -58,15 +59,24 @@ namespace Persistence
             this.orderDate = orderDate;
         }
 
-        public string? getOrderStatus()
+        public int getOrderStatus()
         {
             return this.orderStatus;
         }
 
-        public void setOrderStatus(string orderStatus)
+        public void setOrderStatus(int orderStatus)
         {
             this.orderStatus = orderStatus;
         }
+        
+        public List<Book>? getListBook()
+        {
+            return this.listBook;
+        }
 
+        public void setListBook(List<Book>? listBook)
+        {
+            this.listBook = listBook;
+        }
     }
 }

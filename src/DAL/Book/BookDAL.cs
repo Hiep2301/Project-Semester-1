@@ -85,6 +85,7 @@ namespace DAL
             book.setBookName(reader.GetString("book_name"));
             book.setBookPrice(reader.GetDecimal("book_price"));
             book.setBookDescription(reader.GetString("book_description"));
+            book.setAuthorname(reader.GetString("author_name"));
             return book;
         }
     }

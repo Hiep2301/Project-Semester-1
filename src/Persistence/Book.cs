@@ -7,19 +7,21 @@ namespace Persistence
         private string? bookName;
         private decimal bookPrice;
         private string? bookDescription;
+        private string? authorname;
 
         public Book()
         {
 
         }
 
-        public Book(int bookId, int categoryId, string bookName, decimal bookPrice, string bookDescription)
+        public Book(int bookId, int categoryId, string bookName, decimal bookPrice, string bookDescription, string authorname)
         {
             this.bookId = bookId;
             this.categoryId = categoryId;
             this.bookName = bookName;
             this.bookPrice = bookPrice;
             this.bookDescription = bookDescription;
+            this.authorname = authorname;
         }
 
         public int? getBookId()
@@ -70,6 +72,21 @@ namespace Persistence
         public void setBookDescription(string bookDescription)
         {
             this.bookDescription = bookDescription;
+        }
+
+        public string? getAuthorname()
+        {
+            return this.authorname;
+        }
+
+        public void setAuthorname(string authorname)
+        {
+            this.authorname = authorname;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.getBookId()} - {this.getCategoryId()} - {this.getBookName()} - {this.getBookPrice()} - {this.getBookDescription()} - {this.getAuthorname()}";
         }
     }
 }

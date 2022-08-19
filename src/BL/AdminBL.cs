@@ -11,5 +11,15 @@ namespace BL
         {
             return adminDal.Login(DbConfig.OpenConnection(), admin);
         }
+
+        public bool InsertBook(Book book)
+        {
+            return adminDal.InsertBook(DbConfig.OpenConnection(), book);
+        }
+
+        public bool DeleteBookById(int id)
+        {
+            return adminDal.DeleteBookById(DbConfig.OpenConnection(), id);
+        }
     }
 }

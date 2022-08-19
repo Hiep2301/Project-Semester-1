@@ -3,8 +3,7 @@ namespace Persistence
     public class Admin : User
     {
         private int adminId;
-        private string? firstName;
-        private string? lastName;
+        private string? admintName;
         private string? phone;
 
         public Admin()
@@ -18,13 +17,12 @@ namespace Persistence
             this.setPassword(password);
         }
 
-        public Admin(string userName, string password, int adminId, string firstName, string lastName, string phone)
+        public Admin(string userName, string password, int adminId, string admintName, string phone)
         {
             this.setUserName(userName);
             this.setPassword(password);
             this.adminId = adminId;
-            this.firstName = firstName;
-            this.lastName = lastName;
+            this.admintName = admintName;
             this.phone = phone;
         }
 
@@ -38,24 +36,14 @@ namespace Persistence
             this.adminId = adminId;
         }
 
-        public string? getFirstName()
+        public string? getAdmintName()
         {
-            return this.firstName;
+            return this.admintName;
         }
 
-        public void setFirstName(string firstName)
+        public void setAdmintName(string? admintName)
         {
-            this.firstName = firstName;
-        }
-
-        public string? getLastName()
-        {
-            return this.lastName;
-        }
-
-        public void setLastName(string lastName)
-        {
-            this.lastName = lastName;
+            this.admintName = admintName;
         }
 
         public string? getPhone()
@@ -70,7 +58,7 @@ namespace Persistence
 
         public override string ToString()
         {
-            return $"{this.getUserName()} {this.getPassword()} {this.adminId} {this.firstName} {this.lastName} {this.phone}";
+            return $"{this.getUserName()} - {this.getPassword()} - {this.getAdminId()} - {this.getAdmintName()} - {this.getPhone()}";
         }
     }
 }
