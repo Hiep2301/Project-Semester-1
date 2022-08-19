@@ -12,8 +12,8 @@ namespace DAL
             try
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@_userName", customer.getUserName());
-                cmd.Parameters.AddWithValue("@_password", customer.getPassword());
+                cmd.Parameters.AddWithValue("@_userName", customer.userName);
+                cmd.Parameters.AddWithValue("@_password", customer.password);
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())
@@ -33,12 +33,12 @@ namespace DAL
         private Customer GetCustomer(MySqlDataReader reader)
         {
             Customer customer = new Customer();
-            customer.setCustomerId(reader.GetInt32("customer_id"));
-            customer.setUserName(reader.GetString("user_name"));
-            customer.setPassword(reader.GetString("password"));
-            customer.setCustomerName(reader.GetString("customer_name"));
-            customer.setPhone(reader.GetString("customer_phone"));
-            customer.setAddress(reader.GetString("customer_address"));
+            customer.customerId = reader.GetInt32("customer_id");
+            customer.userName = reader.GetString("user_name");
+            customer.password = reader.GetString("password");
+            customer.customerName = reader.GetString("customer_name");
+            customer.phone = reader.GetString("customer_phone");
+            customer.address = reader.GetString("customer_address");
             return customer;
         }
 

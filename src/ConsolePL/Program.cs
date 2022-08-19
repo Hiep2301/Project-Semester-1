@@ -4,7 +4,6 @@ using BL;
 Console.InputEncoding = System.Text.Encoding.Unicode;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
 int id;
-decimal price;
 char option;
 
 Admin admin = new Admin();
@@ -212,13 +211,13 @@ void MainMenu()
         {
             case 1:
                 Console.Write("Input username: ");
-                admin.setUserName(Console.ReadLine() ?? "");
+                admin.userName = Console.ReadLine() ?? "";
                 Console.Write("Input password: ");
-                admin.setPassword(Console.ReadLine() ?? "");
+                admin.password = Console.ReadLine() ?? "";
                 _admin = adminBl.Login(admin);
                 try
                 {
-                    if (admin.getUserName() == _admin.getUserName() && admin.getPassword() == _admin.getPassword())
+                    if (admin.userName == _admin.userName && admin.password == _admin.password)
                     {
                         MenuManageBook();
                     }
@@ -232,13 +231,13 @@ void MainMenu()
 
             case 2:
                 Console.Write("Input username: ");
-                customer.setUserName(Console.ReadLine() ?? "");
+                customer.userName = Console.ReadLine() ?? "";
                 Console.Write("Input password: ");
-                customer.setPassword(Console.ReadLine() ?? "");
+                customer.password = Console.ReadLine() ?? "";
                 _customer = customerBl.Login(customer);
                 try
                 {
-                    if (customer.getUserName() == _customer.getUserName() && customer.getPassword() == _customer.getPassword())
+                    if (customer.userName == _customer.userName && customer.password == _customer.password)
                     {
                         MenuStore();
                     }
