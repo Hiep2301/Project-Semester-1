@@ -105,20 +105,17 @@ void MenuManageBook()
                     Book InputBook(Book book)
                     {
                         Console.Write("Input book id: ");
-                        int.TryParse(Console.ReadLine(), out id);
-                        book.setBookId(id);
+                        int.TryParse(Console.ReadLine(), out book.bookId);
                         Console.Write("Input category id: ");
-                        int.TryParse(Console.ReadLine(), out id);
-                        category.setCategoryId(id);
+                        int.TryParse(Console.ReadLine(), out book.categoryId.categoryId);
                         Console.Write("Input book name: ");
-                        book.setBookName(Console.ReadLine() ?? "");
+                        book.bookName = Console.ReadLine() ?? "";
                         Console.Write("Input book price: ");
-                        decimal.TryParse(Console.ReadLine(), out price);
-                        book.setBookPrice(price);
+                        decimal.TryParse(Console.ReadLine(), out book.bookPrice);
                         Console.Write("Input book description: ");
-                        book.setBookDescription(Console.ReadLine() ?? "");
+                        book.bookDescription = Console.ReadLine() ?? "";
                         Console.Write("Input author name: ");
-                        book.setAuthorname(Console.ReadLine() ?? "");
+                        book.authorname = Console.ReadLine() ?? "";
                         return book;
                     }
                     if (adminBl.InsertBook(InputBook(book)))
@@ -183,8 +180,8 @@ void MenuStore()
 
             case 2:
                 Console.WriteLine("Input name to search book: ");
-                book.setBookName(Console.ReadLine() ?? "");
-                listBook = bookBl.GetBookByName(book.getBookName() ?? "");
+                book.bookName = Console.ReadLine() ?? "";
+                listBook = bookBl.GetBookByName(book.bookName);
                 foreach (var item in listBook)
                 {
                     Console.WriteLine(item);

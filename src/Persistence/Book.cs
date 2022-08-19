@@ -2,12 +2,12 @@ namespace Persistence
 {
     public class Book
     {
-        private int bookId;
-        private Category? categoryId;
-        private string? bookName;
-        private decimal bookPrice;
-        private string? bookDescription;
-        private string? authorname;
+        public int bookId;
+        public Category? categoryId;
+        public string? bookName;
+        public decimal bookPrice;
+        public string? bookDescription;
+        public string? authorname;
 
         public Book()
         {
@@ -24,69 +24,9 @@ namespace Persistence
             this.authorname = authorname;
         }
 
-        public int? getBookId()
-        {
-            return this.bookId;
-        }
-
-        public void setBookId(int bookId)
-        {
-            this.bookId = bookId;
-        }
-
-        public Category getCategoryId()
-        {
-            return this.categoryId;
-        }
-
-        public void setCategoryId(Category categoryId)
-        {
-            this.categoryId = categoryId;
-        }
-
-        public string? getBookName()
-        {
-            return this.bookName;
-        }
-
-        public void setBookName(string bookName)
-        {
-            this.bookName = bookName;
-        }
-
-        public decimal getBookPrice()
-        {
-            return this.bookPrice;
-        }
-
-        public void setBookPrice(decimal bookPrice)
-        {
-            this.bookPrice = bookPrice;
-        }
-
-        public string? getBookDescription()
-        {
-            return this.bookDescription;
-        }
-
-        public void setBookDescription(string bookDescription)
-        {
-            this.bookDescription = bookDescription;
-        }
-
-        public string? getAuthorname()
-        {
-            return this.authorname;
-        }
-
-        public void setAuthorname(string authorname)
-        {
-            this.authorname = authorname;
-        }
-
         public override string ToString()
         {
-            return $"{this.getBookId()} - {this.getCategoryId()} - {this.getBookName()} - {this.getBookPrice()} - {this.getBookDescription()} - {this.getAuthorname()}";
+            return $"{this.bookId} - {this.categoryId} - {this.bookName} - {this.bookPrice} - {this.bookDescription} - {this.authorname}";
         }
     }
 }

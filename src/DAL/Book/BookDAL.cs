@@ -80,12 +80,12 @@ namespace DAL
         private Book GetBook(MySqlDataReader reader)
         {
             Book book = new Book();
-            book.setBookId(reader.GetInt32("book_id"));
-            // book.setCategoryId(reader.GetInt32("category_id"));
-            book.setBookName(reader.GetString("book_name"));
-            book.setBookPrice(reader.GetDecimal("book_price"));
-            book.setBookDescription(reader.GetString("book_description"));
-            book.setAuthorname(reader.GetString("author_name"));
+            book.bookId = reader.GetInt32("book_id");
+            book.categoryId!.categoryId = reader.GetInt32("category_id");
+            book.bookName = reader.GetString("book_name");
+            book.bookPrice = reader.GetDecimal("book_price");
+            book.bookDescription = reader.GetString("book_description");
+            book.authorname = reader.GetString("author_name");
             return book;
         }
     }

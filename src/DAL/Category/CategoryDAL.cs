@@ -5,7 +5,7 @@ namespace DAL
 {
     public class CategoryDAL : ICategoryDAL
     {
-       public Category GetCategoryById(MySqlConnection connection, int id)
+        public Category GetCategoryById(MySqlConnection connection, int id)
         {
             MySqlCommand cmd = new MySqlCommand("sp_getCategoryById", connection);
             Category _category = null!;
@@ -80,8 +80,8 @@ namespace DAL
         private Category GetCategory(MySqlDataReader reader)
         {
             Category category = new Category();
-            category.setCategoryId(reader.GetInt32("category_id"));
-            category.setCategoryName(reader.GetString("category_name"));
+            category.categoryId = reader.GetInt32("category_id");
+            category.categoryName = reader.GetString("category_name");
             return category;
         }
     }

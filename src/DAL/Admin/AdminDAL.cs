@@ -37,12 +37,12 @@ namespace DAL
             try
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@_bookId", book.getBookId());
-                cmd.Parameters.AddWithValue("@_categoryId", book.getCategoryId());
-                cmd.Parameters.AddWithValue("@_bookName", book.getBookName());
-                cmd.Parameters.AddWithValue("@_bookPrice", book.getBookPrice());
-                cmd.Parameters.AddWithValue("@_bookDescription", book.getBookDescription());
-                cmd.Parameters.AddWithValue("@_authorName", book.getAuthorname());
+                cmd.Parameters.AddWithValue("@_bookId", book.bookId);
+                cmd.Parameters.AddWithValue("@_categoryId", book.categoryId!.categoryId);
+                cmd.Parameters.AddWithValue("@_bookName", book.bookName);
+                cmd.Parameters.AddWithValue("@_bookPrice", book.bookPrice);
+                cmd.Parameters.AddWithValue("@_bookDescription", book.bookDescription);
+                cmd.Parameters.AddWithValue("@_authorName", book.authorname);
                 cmd.ExecuteNonQuery();
             }
             catch
@@ -96,11 +96,11 @@ namespace DAL
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@_bookId", id);
-                cmd.Parameters.AddWithValue("@_categoryId", book.getCategoryId());
-                cmd.Parameters.AddWithValue("@_bookName", book.getBookName());
-                cmd.Parameters.AddWithValue("@_bookPrice", book.getBookPrice());
-                cmd.Parameters.AddWithValue("@_bookDescription", book.getBookDescription());
-                cmd.Parameters.AddWithValue("@_authorName", book.getAuthorname());
+                cmd.Parameters.AddWithValue("@_categoryId", book.categoryId!.categoryId);
+                cmd.Parameters.AddWithValue("@_bookName", book.bookName);
+                cmd.Parameters.AddWithValue("@_bookPrice", book.bookPrice);
+                cmd.Parameters.AddWithValue("@_bookDescription", book.bookDescription);
+                cmd.Parameters.AddWithValue("@_authorName", book.authorname);
                 cmd.ExecuteNonQuery();
             }
             catch
