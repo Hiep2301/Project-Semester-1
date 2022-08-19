@@ -20,19 +20,33 @@ namespace Persistence
         public Customer? customerId;
         public DateTime orderDate;
         public int orderStatus;
-        public List<Book>? listBook;
+        public List<OrderDetails>? booksList;
+        public OrderDetails this[int index]
+        {
+            get
+            {
+                if (booksList == null || booksList.Count == 0 || index < 0 || booksList.Count < index)
+                {
+                    return null!;
+                };
+                return booksList[index];
+            }
+            set
+            {
+                if (booksList == null) booksList = new List<OrderDetails>();
+                booksList.Add(value);
+            }
+        }
 
         public Order()
         {
-
+            booksList = new List<OrderDetails>();
         }
+    }
 
-        public Order(int orderId, Customer customerId, DateTime orderDate, int orderStatus)
-        {
-            this.orderId = orderId;
-            this.customerId = customerId;
-            this.orderDate = orderDate;
-            this.orderStatus = orderStatus;
-        }
+    public class Payment
+    {
+        public decimal paymentAmount;
+        public decimal refund;
     }
 }

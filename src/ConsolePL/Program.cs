@@ -13,12 +13,12 @@ AdminBL adminBl = new AdminBL();
 Customer customer = new Customer();
 Customer _customer = new Customer();
 CustomerBL customerBl = new CustomerBL();
-List<Customer> listCustomer = new List<Customer>();
+List<Customer> customersList = new List<Customer>();
 
 Book book = new Book();
 Book _book = new Book();
 BookBL bookBl = new BookBL();
-List<Book> listBook = new List<Book>();
+List<Book> booksList = new List<Book>();
 
 Category category = new Category();
 Category _category = new Category();
@@ -35,22 +35,22 @@ CategoryBL categoryBl = new CategoryBL();
 // ------------- tìm kiếm khách theo tên
 // Console.Write("Input name to search customer: ");
 // customer.setCustomerName(Console.ReadLine() ?? "");
-// listCustomer = customerBl.GetCustomerByName(customer.getCustomerName() ?? "");
-// foreach (var item in listCustomer)
+// customersList = customerBl.GetCustomerByName(customer.getCustomerName() ?? "");
+// foreach (var item in customersList)
 // {
 //     Console.WriteLine(item);
 // }
 
 // ------------- hiển thị tất cả khách hàng
-// listCustomer = customerBl.GetAllCustomer();
-// foreach (var item in listCustomer)
+// customersList = customerBl.GetAllCustomer();
+// foreach (var item in customersList)
 // {
 //     Console.WriteLine(item);
 // }
 
 // ------------- hiển thị tất cả sách
-// listBook = bookBl.GetAllBook();
-// foreach (var item in listBook)
+// booksList = bookBl.GetAllBook();
+// foreach (var item in booksList)
 // {
 //     Console.WriteLine(item);
 // }
@@ -180,8 +180,8 @@ void MenuStore()
             case 2:
                 Console.WriteLine("Input name to search book: ");
                 book.bookName = Console.ReadLine() ?? "";
-                listBook = bookBl.GetBookByName(book.bookName);
-                foreach (var item in listBook)
+                booksList = bookBl.GetBookByName(book.bookName);
+                foreach (var item in booksList)
                 {
                     Console.WriteLine(item);
                 }
