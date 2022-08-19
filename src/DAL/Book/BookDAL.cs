@@ -81,7 +81,7 @@ namespace DAL
         {
             Book book = new Book();
             book.setBookId(reader.GetInt32("book_id"));
-            book.setCategoryId(reader.GetInt32("category_id"));
+            // book.setCategoryId(reader.GetInt32("category_id"));
             book.setBookName(reader.GetString("book_name"));
             book.setBookPrice(reader.GetDecimal("book_price"));
             book.setBookDescription(reader.GetString("book_description"));
