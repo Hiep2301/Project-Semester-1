@@ -13,7 +13,7 @@ namespace DAL
             {
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@_userName", admin.userName);
-                cmd.Parameters.AddWithValue("@_password", admin.password);
+                cmd.Parameters.AddWithValue("@_password", Md5Algorithms.CreateMD5(admin.password!));
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     if (reader.Read())

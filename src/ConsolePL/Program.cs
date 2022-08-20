@@ -1,5 +1,6 @@
 ﻿using Persistence;
 using BL;
+using System.Text;
 
 Console.InputEncoding = System.Text.Encoding.Unicode;
 Console.OutputEncoding = System.Text.Encoding.Unicode;
@@ -68,6 +69,35 @@ void WaitForButton(string msg)
     Console.ReadKey();
 }
 
+string Password()
+{
+    StringBuilder sb = new StringBuilder();
+    while (true)
+    {
+        ConsoleKeyInfo cki = Console.ReadKey(true);
+        if (cki.Key == ConsoleKey.Enter)
+        {
+            Console.WriteLine();
+            break;
+        }
+        if (cki.Key == ConsoleKey.Backspace)
+        {
+            if (sb.Length > 0)
+            {
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Console.Write(" ");
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                sb.Length--;
+            }
+            continue;
+        }
+        Console.Write('*');
+
+        sb.Append(cki.KeyChar);
+    }
+    return sb.ToString();
+}
+
 int Menu(string[] menu, string name)
 {
     Console.Clear();
@@ -86,6 +116,62 @@ int Menu(string[] menu, string name)
         int.TryParse(Console.ReadLine(), out choice);
     } while (choice < 1 || choice > menu.Length);
     return choice;
+}
+
+void MainMenu()
+{
+    string[] menu = { "Admin login", "Customer login", "Exit" };
+    string name = "Bookstore Management System";
+    int choice;
+    do
+    {
+        choice = Menu(menu, name);
+        switch (choice)
+        {
+            case 1:
+                Console.Write("Input username: ");
+                admin.userName = Console.ReadLine() ?? "";
+                Console.Write("Input password: ");
+                admin.password = Password();
+                _admin = adminBl.Login(admin);
+                try
+                {
+                    if (admin.userName == _admin.userName && admin.password == _admin.password)
+                    {
+                        MenuManageBook();
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Login failed, please try again");
+                }
+                WaitForButton("Press any key to continue");
+                break;
+
+            case 2:
+                Console.Write("Input username: ");
+                customer.userName = Console.ReadLine() ?? "";
+                Console.Write("Input password: ");
+                customer.password = Password();
+                _customer = customerBl.Login(customer);
+                try
+                {
+                    if (customer.userName == _customer.userName && customer.password == _customer.password)
+                    {
+                        MenuStore();
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Login failed, please try again");
+                }
+                WaitForButton("Press any key to continue");
+                break;
+
+            default:
+                break;
+        }
+    } while (choice != menu.Length);
 }
 
 void MenuManageBook()
@@ -199,59 +285,5 @@ void MenuStore()
     } while (choice != menu.Length);
 }
 
-void MainMenu()
-{
-    string[] menu = { "Admin login", "Customer login", "Exit" };
-    string name = "Bookstore Management System";
-    int choice;
-    do
-    {
-        choice = Menu(menu, name);
-        switch (choice)
-        {
-            case 1:
-                Console.Write("Input username: ");
-                admin.userName = Console.ReadLine() ?? "";
-                Console.Write("Input password: ");
-                admin.password = Console.ReadLine() ?? "";
-                _admin = adminBl.Login(admin);
-                try
-                {
-                    if (admin.userName == _admin.userName && admin.password == _admin.password)
-                    {
-                        MenuManageBook();
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Login failed, please try again");
-                }
-                WaitForButton("Press any key to continue");
-                break;
 
-            case 2:
-                Console.Write("Input username: ");
-                customer.userName = Console.ReadLine() ?? "";
-                Console.Write("Input password: ");
-                customer.password = Console.ReadLine() ?? "";
-                _customer = customerBl.Login(customer);
-                try
-                {
-                    if (customer.userName == _customer.userName && customer.password == _customer.password)
-                    {
-                        MenuStore();
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Login failed, please try again");
-                }
-                WaitForButton("Press any key to continue");
-                break;
-
-            default:
-                break;
-        }
-    } while (choice != menu.Length);
-}
 
