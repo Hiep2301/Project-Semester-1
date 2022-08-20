@@ -14,7 +14,7 @@ namespace Persistence
         public const int CANCEL = 4;
     }
 
-    public class Order
+    public class Orders
     {
         public int orderId;
         public Customer? customerId;
@@ -38,7 +38,7 @@ namespace Persistence
             }
         }
 
-        public Order()
+        public Orders()
         {
             booksList = new List<OrderDetails>();
         }

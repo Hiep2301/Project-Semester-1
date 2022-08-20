@@ -5,12 +5,12 @@ namespace DAL
 {
     public interface IOrderDAL
     {
-        public bool CreateOrder(Order order);
-        public bool Payment(Order order);
+        public bool CreateOrder(Orders order);
+        public bool Payment(Orders order);
         public bool ChangeStatus(int status, int id);
-        public List<Order> GetAllOrderInDay(MySqlConnection connection);
-        public Order GetOrderById(MySqlConnection connection, int id);
-        public List<Order> GetOrderUnpaid(MySqlConnection connection);
+        public List<Orders> GetAllOrderInDay(MySqlConnection connection);
+        public Orders GetOrderById(MySqlConnection connection, int id);
+        public List<Orders> GetOrderUnpaid(MySqlConnection connection);
 
     }
 }
