@@ -6,20 +6,11 @@ namespace Persistence
         public int quantity;
     }
 
-    public static class OrderStatus
-    {
-        public const int UNPAID = 1;
-        public const int PROCESSING = 2;
-        public const int PAID = 3;
-        public const int CANCEL = 4;
-    }
-
     public class Orders
     {
         public int orderId;
         public Customer? customerId;
         public DateTime orderDate;
-        public int orderStatus;
         public List<OrderDetails>? booksList;
         public OrderDetails this[int index]
         {

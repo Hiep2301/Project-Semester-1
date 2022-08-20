@@ -5,9 +5,10 @@ namespace Persistence
         public int bookId;
         public Category? categoryId;
         public string? bookName;
+        public string? authorname;
         public decimal bookPrice;
         public string? bookDescription;
-        public string? authorname;
+        public int amount;
 
         public override string ToString()
         {

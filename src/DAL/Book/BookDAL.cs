@@ -83,9 +83,10 @@ namespace DAL
             book.bookId = reader.GetInt32("book_id");
             book.categoryId!.categoryId = reader.GetInt32("category_id");
             book.bookName = reader.GetString("book_name");
+            book.authorname = reader.GetString("author_name");
             book.bookPrice = reader.GetDecimal("book_price");
             book.bookDescription = reader.GetString("book_description");
-            book.authorname = reader.GetString("author_name");
+            book.amount = reader.GetInt32("amount");
             return book;
         }
     }
