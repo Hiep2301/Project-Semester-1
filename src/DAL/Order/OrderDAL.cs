@@ -130,7 +130,7 @@ namespace DAL
             catch { }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return result;
         }
@@ -154,7 +154,7 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return order;
         }

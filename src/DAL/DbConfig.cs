@@ -16,29 +16,5 @@ namespace DAL
             }
             return connection;
         }
-
-        public static MySqlDataReader ExecQuery(string query)
-        {
-            MySqlCommand command = new MySqlCommand(query, connection);
-            return command.ExecuteReader();
-        }
-
-        public static MySqlConnection OpenConnection()
-        {
-            if (connection == null)
-            {
-                GetConnection();
-            }
-            connection!.Open();
-            return connection;
-        }
-
-        public static void CloseConnection()
-        {
-            if (connection != null)
-            {
-                connection.Close();
-            }
-        }
     }
 }
