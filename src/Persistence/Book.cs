@@ -3,16 +3,12 @@ namespace Persistence
     public class Book
     {
         public int bookId;
-        public Category? categoryId;
+        public Category? bookCategory;
         public string? bookName;
-        public string? authorname;
+        public string? authorName;
         public decimal bookPrice;
         public string? bookDescription;
-        public int amount;
-
-        public override string ToString()
-        {
-            return $"{this.bookId} - {this.categoryId} - {this.bookName} - {this.bookPrice} - {this.bookDescription} - {this.authorname}";
-        }
+        public int bookQuantity;
+        public double bookAmount;
     }
 }

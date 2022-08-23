@@ -1,18 +1,20 @@
 namespace Persistence
 {
-    public class OrderDetails
+    public static class OrderStatus
     {
-        public Book book = new Book();
-        public int quantity;
+        public const int CREATE_NEW_ORDER = 1;
     }
 
     public class Orders
     {
         public int orderId;
-        public Customer? customerId;
+        public Customer? orderCustomer;
+        public Staff? orderStaff;
         public DateTime orderDate;
-        public List<OrderDetails>? booksList;
-        public OrderDetails this[int index]
+        public int orderStatus;
+        public List<Book>? booksList;
+        public double total;
+        public Book this[int index]
         {
             get
             {
@@ -24,14 +26,14 @@ namespace Persistence
             }
             set
             {
-                if (booksList == null) booksList = new List<OrderDetails>();
+                if (booksList == null) booksList = new List<Book>();
                 booksList.Add(value);
             }
         }
 
         public Orders()
         {
-            booksList = new List<OrderDetails>();
+            booksList = new List<Book>();
         }
     }
 

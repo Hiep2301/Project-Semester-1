@@ -5,8 +5,7 @@ namespace DAL
 {
     public interface IOrderDAL
     {
-        public Orders CreateOrder(MySqlConnection connection, Orders order);
-        public int GetIdOrder(MySqlConnection connection);
+        public bool CreateOrder(MySqlConnection connection, Orders order);
         public List<Orders> GetAllOrderInDay(MySqlConnection connection);
         public Orders GetOrderById(MySqlConnection connection, int id);
     }
