@@ -9,22 +9,22 @@ namespace BL
 
         public Staff Login(Staff staff)
         {
-            return staffDal.Login(DbConfig.OpenConnection(), staff);
+            return staffDal.Login(staff);
         }
 
         public Staff GetStaffById(int id)
         {
-            return staffDal.GetStaffById(DbConfig.OpenConnection(), id);
+            return staffDal.GetStaffById(id);
         }
 
         public List<Staff> GetStaffByName(string name)
         {
-            return staffDal.GetStaffByName(DbConfig.OpenConnection(), name);
+            return staffDal.GetStaffByName(name);
         }
 
         public List<Staff> GetAllStaff()
         {
-            return staffDal.GetAllStaff(DbConfig.OpenConnection());
+            return staffDal.GetAllStaff();
         }
     }
 }

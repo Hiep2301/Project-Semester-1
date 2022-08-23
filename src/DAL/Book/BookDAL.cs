@@ -5,16 +5,17 @@ namespace DAL
 {
     public class BookDAL : IBookDAL
     {
-        public Book GetBookById(MySqlConnection connection, string searchKeyWord)
+        private MySqlConnection connection = DbConfig.GetConnection();
+        public Book GetBookById(string searchKeyWord, Book book)
         {
-            Book book = null!;
-            try
+            lock (connection)
             {
-                MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
-                cmd.CommandText = $"SELECT book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name FROM book INNER JOIN category ON book.category_id = category.category_id WHERE book.book_id = '{searchKeyWord}';";
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
+                    connection.Open();
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = $"SELECT book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name FROM book INNER JOIN category ON book.category_id = category.category_id WHERE book.book_id = '{searchKeyWord}';";
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
                         book = GetBook(reader);
@@ -25,28 +26,29 @@ namespace DAL
                     }
                     reader.Close();
                 }
+                catch
+                {
+                    book.bookId = -1;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return book;
             }
-            catch
-            {
-                book.bookId = -1;
-            }
-            finally
-            {
-                DbConfig.CloseConnection();
-            }
-            return book;
         }
 
-        public List<Category> GetAllCategory(MySqlConnection connection)
+        public List<Category> GetAllCategory()
         {
-            List<Category> list = null!;
-            try
+            lock (connection)
             {
-                MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
-                cmd.CommandText = $"select * from category;";
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                List<Category> list = null!;
+                try
                 {
+                    connection.Open();
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = $"select * from category;";
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     list = new List<Category>();
                     while (reader.Read())
                     {
@@ -57,12 +59,12 @@ namespace DAL
                     }
                     reader.Close();
                 }
+                finally
+                {
+                    connection.Close();
+                }
+                return list;
             }
-            finally
-            {
-                DbConfig.CloseConnection();
-            }
-            return list;
         }
 
         private Book GetBook(MySqlDataReader reader)
@@ -75,42 +77,44 @@ namespace DAL
             book.bookPrice = reader.GetDecimal("book_price");
             book.bookDescription = reader.GetString("book_description");
             book.bookQuantity = reader.GetInt32("book_quantity");
+            book.bookCategory.categoryName = reader.GetString("category_name");
             return book;
         }
 
-        public List<Book> GetBooks(MySqlConnection connection, List<Book> list, string commandText)
+        public List<Book> GetBooks(List<Book> list, string commandText)
         {
-            Book book = null!;
-            try
+            lock (connection)
             {
-                MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
-                cmd.CommandText = commandText;
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
+                    connection.Open();
+                    MySqlCommand cmd = connection.CreateCommand();
+                    cmd.CommandText = commandText;
+                    MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
+                        Book book = new Book();
                         book.bookId = reader.GetInt32("book_id");
                         book.bookName = reader.GetString("book_name");
                         book.authorName = reader.GetString("author_name");
                         book.bookPrice = reader.GetDecimal("book_price");
-                        book.bookCategory!.categoryName = reader.GetString("category_name");
                         book.bookDescription = reader.GetString("book_description");
                         book.bookQuantity = reader.GetInt32("book_quantity");
+                        book.bookCategory!.categoryName = reader.GetString("category_name");
                         list.Add(book);
                     }
                     reader.Close();
                 }
+                catch
+                {
+                    Console.WriteLine("Disconnected database");
+                }
+                finally
+                {
+                    connection.Close();
+                }
+                return list;
             }
-            catch
-            {
-                Console.WriteLine("Lost Database Connection");
-            }
-            finally
-            {
-                DbConfig.CloseConnection();
-            }
-            return list;
         }
     }
 }

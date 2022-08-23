@@ -7,8 +7,8 @@ namespace DAL
     public class OrderDAL : IOrderDAL
     {
         public MySqlDataReader? reader;
-
-        public bool CreateOrder(MySqlConnection connection, Orders order)
+        private MySqlConnection connection = DbConfig.GetConnection();
+        public bool CreateOrder(Orders order)
         {
             if (order == null || order.booksList == null || order.booksList.Count == 0)
             {
@@ -17,8 +17,8 @@ namespace DAL
             bool result = false;
             try
             {
+                connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
                 //Khoá cập nhật tất cả table, bảo đảm tính toàn vẹn dữ liệu
                 cmd.CommandText = "lock tables staff write, book write, category write, customer write, order_details write, orders write;";
                 cmd.ExecuteNonQuery();
@@ -135,7 +135,7 @@ namespace DAL
             return result;
         }
 
-        public Orders GetOrderById(MySqlConnection connection, int id)
+        public Orders GetOrderById(int id)
         {
             Orders order = null!;
             try
@@ -159,7 +159,7 @@ namespace DAL
             return order;
         }
 
-        public List<Orders> GetAllOrderInDay(MySqlConnection connection)
+        public List<Orders> GetAllOrderInDay()
         {
             List<Orders> list = new List<Orders>();
             Orders order = null!;
@@ -185,7 +185,7 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return list;
         }

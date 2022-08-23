@@ -2,7 +2,7 @@ namespace Persistence
 {
     public class Category
     {
-        public int categoryId;
-        public string? categoryName;
+        public int categoryId { get; set; }
+        public string? categoryName { get; set; }
     }
 }

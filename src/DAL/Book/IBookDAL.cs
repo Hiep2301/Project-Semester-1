@@ -5,7 +5,7 @@ namespace DAL
 {
     public interface IBookDAL
     {
-        public Book GetBookById(MySqlConnection connection, string searchKeyWord);
-        public List<Category> GetAllCategory(MySqlConnection connection);
+        public Book GetBookById(string searchKeyWord, Book book);
+        public List<Category> GetAllCategory();
     }
 }

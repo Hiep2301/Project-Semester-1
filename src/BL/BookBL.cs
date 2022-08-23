@@ -11,7 +11,7 @@ namespace BL
         public Book SearchBookByID(string searchKeyWord)
         {
             Book book = new Book();
-            book = bookDal.GetBookById(DbConfig.OpenConnection(), searchKeyWord);
+            book = bookDal.GetBookById(searchKeyWord, book);
             if (book.bookId <= 0)
             {
                 Console.WriteLine($"Không tồn tại sản phẩm phù hợp với từ khoá là '{searchKeyWord}'");
@@ -26,7 +26,7 @@ namespace BL
         public void GetAllBook(string commandText)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBooks(DbConfig.OpenConnection(), list, commandText);
+            list = bookDal.GetBooks(list, commandText);
             if (list.Count == 0)
             {
                 Console.WriteLine("Không có sản phẩm!");
@@ -157,7 +157,7 @@ namespace BL
         public void MenuListSearchBook(string commandText, string searchKeyWord)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBooks(DbConfig.OpenConnection(), list, commandText);
+            list = bookDal.GetBooks(list, commandText);
             string search = searchKeyWord;
             if (list.Count == 0)
             {

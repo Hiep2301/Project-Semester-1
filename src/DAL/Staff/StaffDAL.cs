@@ -3,14 +3,15 @@ using Persistence;
 
 namespace DAL
 {
-    public class StaffDAL
+    public class StaffDAL : IStaffDAL
     {
-        public Staff Login(MySqlConnection connection, Staff staff)
+        private MySqlConnection connection = DbConfig.GetConnection();
+        public Staff Login(Staff staff)
         {
             try
             {
+                connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
                 cmd.CommandText = $"select * from staff where staff_username = '{staff.userName}' and staff_password = '{Md5Algorithms.CreateMD5(staff.password!)}';";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -23,18 +24,18 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return staff;
         }
 
-        public Staff GetStaffById(MySqlConnection connection, int id)
+        public Staff GetStaffById(int id)
         {
             Staff staff = null!;
             try
             {
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
+                connection.Open();
                 cmd.CommandText = $"select * from staff where staff_id = {id};";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -47,18 +48,18 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return staff;
         }
 
-        public List<Staff> GetStaffByName(MySqlConnection connection, string name)
+        public List<Staff> GetStaffByName(string name)
         {
             List<Staff> list = null!;
             try
             {
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
+                connection.Open();
                 cmd.CommandText = $"select * from staff where staff_name like concat('%', {name}, '%');";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -72,18 +73,18 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return list;
         }
 
-        public List<Staff> GetAllStaff(MySqlConnection connection)
+        public List<Staff> GetAllStaff()
         {
             List<Staff> list = null!;
             try
             {
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
+                connection.Open();
                 cmd.CommandText = $"select * from staff;";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -97,7 +98,7 @@ namespace DAL
             }
             finally
             {
-                DbConfig.CloseConnection();
+                connection.Close();
             }
             return list;
         }
@@ -106,8 +107,6 @@ namespace DAL
         {
             Staff staff = new Staff();
             staff.staffId = reader.GetInt32("staff_id");
-            staff.userName = reader.GetString("staff_username");
-            staff.password = reader.GetString("staff_password");
             staff.staffName = reader.GetString("staff_name");
             staff.staffPhone = reader.GetString("staff_phone");
             staff.staffAddress = reader.GetString("staff_address");

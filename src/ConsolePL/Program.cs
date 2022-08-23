@@ -186,11 +186,13 @@ void MenuSearchBook()
             case 1:
                 Console.Write("Nhập id để tìm kiếm: ");
                 string id = Console.ReadLine() ?? "";
-                Console.WriteLine(bookBl.SearchBookByID(id)); ;
+                Console.WriteLine(bookBl.SearchBookByID(id));
+                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             case 2:
                 Console.WriteLine("Gợi ý từ khoá: \"nho gay\", \"pate\", \"cho\", \"giả kim\",...");
+                Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameBook = Console.ReadLine() ?? "";
                 string commandTextSearchByName = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where book.book_name like concat('%', {nameBook}, '%');";
                 bookBl.MenuListSearchBook(commandTextSearchByName, nameBook);
@@ -198,6 +200,7 @@ void MenuSearchBook()
 
             case 3:
                 Console.WriteLine("Gợi ý từ khoá: \"văn học\", \"kinh tế\", \"thiếu nhi\", \"ngoại ngữ\",...");
+                Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameCategory = Console.ReadLine() ?? "";
                 string commandTextSearchByCategory = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where category.category_name like concat('%', {nameCategory}, '%');";
                 bookBl.MenuListSearchBook(commandTextSearchByCategory, nameCategory);

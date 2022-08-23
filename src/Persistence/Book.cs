@@ -2,13 +2,13 @@ namespace Persistence
 {
     public class Book
     {
-        public int bookId;
-        public Category? bookCategory;
-        public string? bookName;
-        public string? authorName;
-        public decimal bookPrice;
-        public string? bookDescription;
-        public int bookQuantity;
-        public double bookAmount;
+        public int bookId { get; set; }
+        public Category? bookCategory { get; set; }
+        public string? bookName { get; set; }
+        public string? authorName { get; set; }
+        public decimal bookPrice { get; set; }
+        public string? bookDescription { get; set; }
+        public int bookQuantity { get; set; }
+        public double bookAmount { get; set; }
     }
 }

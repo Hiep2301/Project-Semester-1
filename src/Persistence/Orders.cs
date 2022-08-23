@@ -7,13 +7,13 @@ namespace Persistence
 
     public class Orders
     {
-        public int orderId;
-        public Customer? orderCustomer;
-        public Staff? orderStaff;
-        public DateTime orderDate;
-        public int orderStatus;
-        public List<Book>? booksList;
-        public double total;
+        public int orderId { get; set; }
+        public Customer? orderCustomer { get; set; }
+        public Staff? orderStaff { get; set; }
+        public DateTime orderDate { get; set; }
+        public int orderStatus { get; set; }
+        public List<Book>? booksList { get; set; }
+        public double total { get; set; }
         public Book this[int index]
         {
             get
