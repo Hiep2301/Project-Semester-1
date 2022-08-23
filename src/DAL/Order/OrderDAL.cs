@@ -6,7 +6,6 @@ namespace DAL
 {
     public class OrderDAL : IOrderDAL
     {
-        private string? query;
         public MySqlDataReader? reader;
 
         public bool CreateOrder(MySqlConnection connection, Orders order)
