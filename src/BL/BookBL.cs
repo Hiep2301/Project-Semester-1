@@ -26,7 +26,7 @@ namespace BL
         public void GetAllBook(string commandText)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBooks(list, commandText);
+            list = bookDal.GetBook(list, commandText);
             if (list.Count == 0)
             {
                 Console.WriteLine("Không có sản phẩm!");
@@ -53,7 +53,7 @@ namespace BL
                         {
                             price = FormatCurrency(list[i].bookPrice.ToString());
                             Console.WriteLine("--------------------------------------------------------------------------------------------------------------------------------");
-                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,9} | {list[i].bookCategory!.categoryName,-13} |");
+                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,9} | {list[i].bookCategory,-13} |");
                         }
                     }
                     else
@@ -63,7 +63,7 @@ namespace BL
                             if (i == list.Count) break;
                             price = FormatCurrency(list[i].bookPrice.ToString());
                             Console.WriteLine("--------------------------------------------------------------------------------------------------------------------------------");
-                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory!.categoryName,-13} |");
+                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory,-13} |");
                         }
                     }
                     Console.WriteLine("================================================================================================================================");
@@ -157,7 +157,7 @@ namespace BL
         public void MenuListSearchBook(string commandText, string searchKeyWord)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBooks(list, commandText);
+            list = bookDal.GetBook(list, commandText);
             string search = searchKeyWord;
             if (list.Count == 0)
             {
@@ -185,7 +185,7 @@ namespace BL
                         {
                             price = FormatCurrency(list[i].bookPrice.ToString());
                             Console.WriteLine("--------------------------------------------------------------------------------------------------------------------------------");
-                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory!.categoryName,-13} |");
+                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory,-13} |");
                         }
                     }
                     else
@@ -195,7 +195,7 @@ namespace BL
                             if (i == list.Count) break;
                             price = FormatCurrency(list[i].bookPrice.ToString());
                             Console.WriteLine("--------------------------------------------------------------------------------------------------------------------------------");
-                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory!.categoryName,-13} |");
+                            Console.WriteLine($"| {list[i].bookId,5} | {list[i].bookName,-65} | {price,13} | {list[i].bookCategory,-13} |");
                         }
                     }
                     Console.WriteLine("================================================================================================================================");
@@ -301,7 +301,7 @@ namespace BL
             Console.WriteLine("-----------------------------------------------------------------------------------------------");
             Console.WriteLine($"| Giá:               | {price,-70} |");
             Console.WriteLine("-----------------------------------------------------------------------------------------------");
-            Console.WriteLine($"| Phân loại:         | {book.bookCategory!.categoryName,-70} |");
+            Console.WriteLine($"| Phân loại:         | {book.bookCategory,-70} |");
             Console.WriteLine("-----------------------------------------------------------------------------------------------");
             Console.WriteLine($"| Số lượng:          | {book.bookQuantity,-70} |");
             Console.WriteLine("-----------------------------------------------------------------------------------------------");

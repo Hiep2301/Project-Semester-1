@@ -6,6 +6,5 @@ namespace DAL
     public interface IBookDAL
     {
         public Book GetBookById(string searchKeyWord, Book book);
-        public List<Category> GetAllCategory();
     }
 }

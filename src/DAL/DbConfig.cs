@@ -11,10 +11,15 @@ namespace DAL
             {
                 connection = new MySqlConnection
                 {
-                    ConnectionString = @"server = localhost; userid = root; password = 02032001; port = 3306; database = bookstore;"
+                    ConnectionString = "server=localhost;userid=root;password=02032001;port=3306;database=bookstore;"
                 };
             }
             return connection;
+        }
+
+        private DbConfig()
+        {
+
         }
     }
 }

@@ -140,8 +140,8 @@ namespace DAL
             Orders order = null!;
             try
             {
+                connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
                 cmd.CommandText = $"select * from orders where order_id = {id};";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -165,8 +165,8 @@ namespace DAL
             Orders order = null!;
             try
             {
+                connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.Connection = connection;
                 cmd.CommandText = $"select * from orders where day(order_date) + month(order_date) + year(order_date) = '{DateTime.Now.Day}' + '{DateTime.Now.Month}' + '{DateTime.Now.Year}';";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {

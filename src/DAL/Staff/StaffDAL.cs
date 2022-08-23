@@ -6,6 +6,7 @@ namespace DAL
     public class StaffDAL : IStaffDAL
     {
         private MySqlConnection connection = DbConfig.GetConnection();
+
         public Staff Login(Staff staff)
         {
             try
@@ -34,8 +35,8 @@ namespace DAL
             Staff staff = null!;
             try
             {
-                MySqlCommand cmd = connection.CreateCommand();
                 connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
                 cmd.CommandText = $"select * from staff where staff_id = {id};";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -58,8 +59,8 @@ namespace DAL
             List<Staff> list = null!;
             try
             {
-                MySqlCommand cmd = connection.CreateCommand();
                 connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
                 cmd.CommandText = $"select * from staff where staff_name like concat('%', {name}, '%');";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -83,8 +84,8 @@ namespace DAL
             List<Staff> list = null!;
             try
             {
-                MySqlCommand cmd = connection.CreateCommand();
                 connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
                 cmd.CommandText = $"select * from staff;";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {

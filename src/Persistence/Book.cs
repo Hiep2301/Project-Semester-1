@@ -3,7 +3,7 @@ namespace Persistence
     public class Book
     {
         public int bookId { get; set; }
-        public Category? bookCategory { get; set; }
+        public string? bookCategory { get; set; }
         public string? bookName { get; set; }
         public string? authorName { get; set; }
         public decimal bookPrice { get; set; }
