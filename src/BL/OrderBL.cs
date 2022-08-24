@@ -10,6 +10,5 @@ namespace BL
         {
             return orderDal.CreateOrder(order);
         }
-
     }
 }

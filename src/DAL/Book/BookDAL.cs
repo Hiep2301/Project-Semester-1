@@ -65,7 +65,7 @@ namespace DAL
                     }
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch
                 {
                     Console.WriteLine("Disconnected database");
                 }

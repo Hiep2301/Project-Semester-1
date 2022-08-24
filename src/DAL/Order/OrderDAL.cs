@@ -1,6 +1,5 @@
 using MySql.Data.MySqlClient;
 using Persistence;
-using System.Text.RegularExpressions;
 
 namespace DAL
 {
@@ -33,13 +32,6 @@ namespace DAL
                 {
                     Console.Write("Nhập số điện thoại khách hàng: ");
                     string customerPhone = Console.ReadLine() ?? "";
-                    while (!(Regex.IsMatch(customerPhone, @"^(0|\+84)\d{9}$")))
-                    {
-                        Console.WriteLine("Số điện thoại không hợp lệ!");
-                        Console.Write("Nhập số điện thoại khách hàng: ");
-                        customerPhone = Console.ReadLine() ?? "";
-                    }
-
                     cmd.CommandText = $"select * from customer where customer_phone = {customerPhone};";
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -57,14 +49,8 @@ namespace DAL
                     {
                         Console.Write("Nhập tên khách hàng: ");
                         string customerName = Console.ReadLine() ?? "";
-                        while (!(Regex.IsMatch(customerName, @"(^[A-Z,a-z]+$)|^([A-Z,a-z]+ *)+[A-Z,a-z]$")))
-                        {
-                            Console.WriteLine("Tên khách hàng không hợp lệ!");
-                            Console.Write("Nhập tên khách hàng: ");
-                            customerName = Console.ReadLine() ?? "";
-                        }
                         order.orderCustomer = new Customer { customerName = customerName, customerPhone = customerPhone };
-                        cmd.CommandText = $"insert into customer(customer_name, customer_phone) values ({order.orderCustomer.customerName}, {order.orderCustomer.customerPhone});";
+                        cmd.CommandText = $"insert into customer(customer_name, customer_phone) values ('{order.orderCustomer.customerName}', '{order.orderCustomer.customerPhone}');";
                         cmd.ExecuteNonQuery();
                         cmd.CommandText = "select LAST_INSERT_ID() as customer_id;";
                         reader = cmd.ExecuteReader();

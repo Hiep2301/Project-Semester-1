@@ -93,7 +93,7 @@ int Menu(string[] menu, string name)
     int choice;
     do
     {
-        Console.Write("Lựa chọn: ");
+        Console.Write("Chọn: ");
         int.TryParse(Console.ReadLine(), out choice);
     } while (choice < 1 || choice > menu.Length);
     return choice;
@@ -110,6 +110,7 @@ void MainMenu()
         switch (choice)
         {
             case 1:
+                Console.Clear();
                 Console.Write("Tên đăng nhập: ");
                 string username = Console.ReadLine() ?? "";
                 Console.Write("Mật khẩu: ");
@@ -150,12 +151,10 @@ void MenuStore(Staff staff)
         {
             case 1:
                 MenuSearchBook();
-                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             case 2:
                 CreateNewOrder(staff);
-                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             case 3:
@@ -186,7 +185,7 @@ void MenuSearchBook()
             case 1:
                 Console.Write("Nhập id để tìm kiếm: ");
                 string id = Console.ReadLine() ?? "";
-                Console.WriteLine(bookBl.SearchBookByID(id));
+                bookBl.SearchBookByID(id);
                 WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
@@ -194,21 +193,24 @@ void MenuSearchBook()
                 Console.WriteLine("Gợi ý từ khoá: \"nho gay\", \"pate\", \"cho\", \"giả kim\",...");
                 Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameBook = Console.ReadLine() ?? "";
-                string commandTextSearchByName = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where book.book_name like concat('%', {nameBook}, '%');";
+                string commandTextSearchByName = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where book.book_name like concat('%', '{nameBook}', '%');";
                 bookBl.MenuListSearchBook(commandTextSearchByName, nameBook);
+                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             case 3:
                 Console.WriteLine("Gợi ý từ khoá: \"văn học\", \"kinh tế\", \"thiếu nhi\", \"ngoại ngữ\",...");
                 Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameCategory = Console.ReadLine() ?? "";
-                string commandTextSearchByCategory = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where category.category_name like concat('%', {nameCategory}, '%');";
+                string commandTextSearchByCategory = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where category.category_name like concat('%', '{nameCategory}', '%');";
                 bookBl.MenuListSearchBook(commandTextSearchByCategory, nameCategory);
+                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             case 4:
                 string commandTextGetAllBook = "select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id;";
                 bookBl.GetAllBook(commandTextGetAllBook);
+                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
                 break;
 
             default:
@@ -302,7 +304,7 @@ void CreateNewOrder(Staff staff)
         Console.WriteLine("|                                       Hoá đơn bán hàng                                        |");
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
         Console.WriteLine($"| Thời gian: {order.orderDate,-61}    Mã hoá đơn: {order.orderId,5} |");
-        Console.WriteLine($"| Nhân viên bán hàng: {order.orderStaff.staffName,-41} Địa chỉ: TP.Hà Nội                      |");
+        Console.WriteLine($"| Nhân viên bán hàng: {order.orderStaff.staffName,-41} Địa chỉ: TP.Hà Nội              |");
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
         Console.WriteLine("| Mặt hàng                                                            Đơn giá    SL      T.Tiền |");
         foreach (Book book in order.booksList!)
