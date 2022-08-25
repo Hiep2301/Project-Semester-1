@@ -16,10 +16,5 @@ namespace DAL
             }
             return connection;
         }
-
-        private DbConfig()
-        {
-
-        }
     }
 }

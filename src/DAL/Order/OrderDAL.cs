@@ -6,7 +6,7 @@ namespace DAL
 {
     public class OrderDAL : IOrderDAL
     {
-        public MySqlDataReader? reader;
+        private MySqlDataReader? reader;
         private MySqlConnection connection = DbConfig.GetConnection();
         public bool CreateOrder(Orders order)
         {
@@ -128,34 +128,6 @@ namespace DAL
             return result;
         }
 
-        public Orders GetOrderById(int id)
-        {
-            Orders order = null!;
-            try
-            {
-                connection.Open();
-                MySqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = $"select * from orders where order_id = {id};";
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        order = GetOrder(reader);
-                    }
-                    reader.Close();
-                }
-            }
-            catch
-            {
-                Console.WriteLine("Disconnected database");
-            }
-            finally
-            {
-                connection.Close();
-            }
-            return order;
-        }
-
         public List<Orders> GetAllOrderInDay()
         {
             List<Orders> list = new List<Orders>();
@@ -189,12 +161,6 @@ namespace DAL
                 connection.Close();
             }
             return list;
-        }
-
-        public bool Payment()
-        {
-            
-            return true;
         }
 
         private Orders GetOrder(MySqlDataReader reader)

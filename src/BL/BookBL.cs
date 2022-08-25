@@ -27,7 +27,7 @@ namespace BL
         public void GetAllBook(string commandText)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBook(list, commandText);
+            list = bookDal.GetBookList(list, commandText);
             if (list.Count == 0)
             {
                 Console.WriteLine("Không có sản phẩm!");
@@ -158,7 +158,7 @@ namespace BL
         public void MenuListSearchBook(string commandText, string searchKeyWord)
         {
             List<Book> list = new List<Book>();
-            list = bookDal.GetBook(list, commandText);
+            list = bookDal.GetBookList(list, commandText);
             string search = '"' + searchKeyWord + '"';
             if (list.Count == 0)
             {

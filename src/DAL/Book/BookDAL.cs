@@ -6,6 +6,7 @@ namespace DAL
     public class BookDAL : IBookDAL
     {
         private MySqlConnection connection = DbConfig.GetConnection();
+
         public Book GetBookById(string searchKeyWord, Book book)
         {
             try
@@ -41,7 +42,7 @@ namespace DAL
             return book;
         }
 
-        public List<Book> GetBook(List<Book> list, string commandText)
+        public List<Book> GetBookList(List<Book> list, string commandText)
         {
             lock (connection)
             {

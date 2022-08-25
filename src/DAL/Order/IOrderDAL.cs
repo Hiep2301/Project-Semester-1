@@ -7,7 +7,5 @@ namespace DAL
     {
         public bool CreateOrder(Orders order);
         public List<Orders> GetAllOrderInDay();
-        public Orders GetOrderById(int id);
-        public bool Payment();
     }
 }
