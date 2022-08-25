@@ -9,6 +9,6 @@ namespace Persistence
         public decimal bookPrice { get; set; }
         public string? bookDescription { get; set; }
         public int bookQuantity { get; set; }
-        public double bookAmount { get; set; }
+        public decimal bookAmount { get; set; }
     }
 }

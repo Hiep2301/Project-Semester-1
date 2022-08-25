@@ -13,11 +13,6 @@ BookBL bookBl = new BookBL();
 
 MainMenu();
 
-void Line()
-{
-    Console.WriteLine("==============================");
-}
-
 void WaitForButton(string msg)
 {
     Console.Write(msg);
@@ -82,14 +77,14 @@ string GetPassword()
 int Menu(string[] menu, string name)
 {
     Console.Clear();
-    Line();
-    Console.WriteLine(name);
-    Line();
+    Console.WriteLine("===============================================================");
+    Console.WriteLine($"|                          {name,-25}          |");
+    Console.WriteLine("===============================================================");
     for (int i = 0; i < menu.Length; i++)
     {
         Console.WriteLine($"{i + 1}. {menu[i]}");
     }
-    Line();
+    Console.WriteLine("===============================================================");
     int choice;
     do
     {
@@ -111,6 +106,9 @@ void MainMenu()
         {
             case 1:
                 Console.Clear();
+                Console.WriteLine("===============================================================");
+                Console.WriteLine("|                          Đăng nhập                          |");
+                Console.WriteLine("===============================================================");
                 Console.Write("Tên đăng nhập: ");
                 string username = Console.ReadLine() ?? "";
                 Console.Write("Mật khẩu: ");
@@ -129,7 +127,7 @@ void MainMenu()
                 break;
 
             case 2:
-                if (IsContinue("Bạn có chắc là muốn thoát?(Y/N): "))
+                if (IsContinue("Bạn có chắc là muốn thoát? (Y/N): "))
                 {
                     Console.WriteLine("Đã thoát ứng dụng!");
                     Environment.Exit(0);
@@ -141,7 +139,7 @@ void MainMenu()
 
 void MenuStore(Staff staff)
 {
-    string[] menu = { "Tìm kiếm sách", "Tạo đơn hàng mới", "Đăng xuất" };
+    string[] menu = { "Tìm kiếm sách", "Tạo đơn hàng mới", "Lịch sử giao dịch", "Đăng xuất" };
     string name = "CHỨC NĂNG CHÍNH";
     int choice;
     do
@@ -158,7 +156,23 @@ void MenuStore(Staff staff)
                 break;
 
             case 3:
-                if (IsContinue("Bạn có muốn đăng xuất?(Y/N): "))
+                Console.Clear();
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("|                               Lịch sử giao dịch                               |");
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("| Mã hóa đơn   Người tạo            Thời gian tạo             Tổng tiền         |");
+                Console.WriteLine("| ----------   --------------       -------------             ---------         |");
+                foreach (var item in orderBl.GetAllOrderInDay())
+                {
+                    Console.WriteLine($"| {item.orderId,-12} {staff.staffName,-20} {item.orderDate,-25} {FormatCurrency(item.total.ToString()),-17} |");
+
+                }
+                Console.WriteLine("=================================================================================");
+                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
+                break;
+
+            case 4:
+                if (IsContinue("Bạn có muốn đăng xuất? (Y/N): "))
                 {
                     Console.WriteLine("Đăng xuất thành công!");
                     WaitForButton("Nhập phím bất kỳ để tiếp tục...");
@@ -190,7 +204,7 @@ void MenuSearchBook()
                 break;
 
             case 2:
-                Console.WriteLine("Gợi ý từ khoá: \"nho gay\", \"pate\", \"cho\", \"giả kim\",...");
+                Console.WriteLine("Gợi ý từ khoá: \"\", \"\", \"\", \"giả kim\",...");
                 Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameBook = Console.ReadLine() ?? "";
                 string commandTextSearchByName = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where book.book_name like concat('%', '{nameBook}', '%');";
@@ -269,7 +283,7 @@ void CreateNewOrder(Staff staff)
                 Console.WriteLine("Số lượng mua vượt quá số lượng sách có sẵn!");
                 continue;
             }
-            double amount = (double)quantity * (double)book.bookPrice;
+            decimal amount = (decimal)quantity * book.bookPrice;
             book.bookQuantity = quantity;
             book.bookAmount = amount;
             bool add = true;
@@ -303,8 +317,8 @@ void CreateNewOrder(Staff staff)
         Console.WriteLine("=================================================================================================");
         Console.WriteLine("|                                       Hoá đơn bán hàng                                        |");
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
-        Console.WriteLine($"| Thời gian: {order.orderDate,-61}    Mã hoá đơn: {order.orderId,5} |");
-        Console.WriteLine($"| Nhân viên bán hàng: {order.orderStaff.staffName,-41} Địa chỉ: TP.Hà Nội              |");
+        Console.WriteLine($"| Thời gian: {order.orderDate,-61}   Mã hoá đơn: {order.orderId,6} |");
+        Console.WriteLine($"| Nhân viên bán hàng: {order.orderStaff.staffName,-41}              Địa chỉ: TP.Hà Nội |");
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
         Console.WriteLine("| Mặt hàng                                                            Đơn giá    SL      T.Tiền |");
         foreach (Book book in order.booksList!)
@@ -320,9 +334,36 @@ void CreateNewOrder(Staff staff)
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
         Console.WriteLine($"| Tên khách hàng: {order.orderCustomer!.customerName,-49} Số điện thoại: {order.orderCustomer.customerPhone,12} |");
         Console.WriteLine("-------------------------------------------------------------------------------------------------");
+        Payment payment = new Payment();
+        string paymentAmount;
+        string refund;
+        while (true)
+        {
+            Console.Write("Nhập số tiền khách thanh toán: ");
+            paymentAmount = Console.ReadLine() ?? "";
+            if (Convert.ToDecimal(paymentAmount) >= order.total)
+            {
+                payment.paymentAmount = Convert.ToDecimal(paymentAmount);
+                paymentAmount = FormatCurrency(payment.paymentAmount.ToString());
+
+                payment.refund = payment.paymentAmount - order.total;
+                refund = FormatCurrency(payment.refund.ToString());
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Số tiền bạn nhập không đúng! Vui lòng nhập lại!");
+            }
+        }
+        Console.WriteLine("-------------------------------------------------------------------------------------------------");
+        Console.WriteLine($"|                                                        + Tổng tiền      : {total,15} VND |");
+        Console.WriteLine($"|                                                        + Tiền thanh toán: {paymentAmount,15} VND |");
+        Console.WriteLine($"|                                                        + Hoàn tiền      : {refund,15} VND |");
+        Console.WriteLine("-------------------------------------------------------------------------------------------------");
         Console.WriteLine("|                               CẢM ƠN QUÝ KHÁCH VÀ HẸN GẶP LẠI!                                |");
         Console.WriteLine("|                                  Website: www.bookstore.com                                   |");
         Console.WriteLine("=================================================================================================");
+
     }
     else
     {

@@ -1,5 +1,6 @@
 using MySql.Data.MySqlClient;
 using Persistence;
+using System.Text.RegularExpressions;
 
 namespace DAL
 {
@@ -98,14 +99,17 @@ namespace DAL
                     trans.Commit();
                     result = true;
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Disconnected database");
                     try
                     {
                         trans.Rollback();
                     }
-                    catch { }
+                    catch
+                    {
+                        Console.WriteLine("Disconnected database");
+                    }
                 }
                 finally
                 {
@@ -113,7 +117,10 @@ namespace DAL
                     cmd.ExecuteNonQuery();
                 }
             }
-            catch { }
+            catch
+            {
+                Console.WriteLine("Disconnected database");
+            }
             finally
             {
                 connection.Close();
@@ -138,6 +145,10 @@ namespace DAL
                     reader.Close();
                 }
             }
+            catch
+            {
+                Console.WriteLine("Disconnected database");
+            }
             finally
             {
                 connection.Close();
@@ -153,7 +164,7 @@ namespace DAL
             {
                 connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = $"select * from orders where day(order_date) + month(order_date) + year(order_date) = '{DateTime.Now.Day}' + '{DateTime.Now.Month}' + '{DateTime.Now.Year}';";
+                cmd.CommandText = $"select orders.order_id, orders.order_date, order_details.unit_price from orders inner join order_details on orders.order_id = order_details.order_id where day(order_date) + month(order_date) + year(order_date) = '{DateTime.Now.Day}' + '{DateTime.Now.Month}' + '{DateTime.Now.Year}';";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -169,6 +180,10 @@ namespace DAL
                     }
                 }
             }
+            catch
+            {
+                Console.WriteLine("Disconnected database");
+            }
             finally
             {
                 connection.Close();
@@ -176,15 +191,40 @@ namespace DAL
             return list;
         }
 
+        public bool Payment()
+        {
+            
+            return true;
+        }
+
         private Orders GetOrder(MySqlDataReader reader)
         {
             Orders order = new Orders();
             order.orderCustomer = new Customer();
             order.orderId = reader.GetInt32("order_id");
-            order.orderCustomer.customerId = reader.GetInt32("customer_id");
-            order.orderStaff!.staffId = reader.GetInt32("staff_id");
             order.orderDate = reader.GetDateTime("order_date");
+            order.total = reader.GetDecimal("unit_price");
             return order;
+        }
+
+        private bool IsContinue(string text)
+        {
+            string Continue;
+            bool isMatch;
+            Console.Write(text);
+            Continue = Console.ReadLine() ?? "";
+            isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
+            while (!isMatch)
+            {
+                Console.Write(" Chọn (Y/N)!!!: ");
+                Continue = Console.ReadLine() ?? "";
+                isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
+            }
+            if (Continue == "y" || Continue == "Y")
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

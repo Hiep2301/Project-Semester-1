@@ -13,7 +13,7 @@ namespace Persistence
         public DateTime orderDate { get; set; }
         public int orderStatus { get; set; }
         public List<Book>? booksList { get; set; }
-        public double total { get; set; }
+        public decimal total { get; set; }
         public Book this[int index]
         {
             get
@@ -39,7 +39,7 @@ namespace Persistence
 
     public class Payment
     {
-        public decimal paymentAmount;
-        public decimal refund;
+        public decimal paymentAmount { get; set; }
+        public decimal refund { get; set; }
     }
 }
