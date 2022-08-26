@@ -78,7 +78,7 @@ int Menu(string[] menu, string name)
 {
     Console.Clear();
     Console.WriteLine("===============================================================");
-    Console.WriteLine($"|                          {name,-25}          |");
+    Console.WriteLine($"|                         {name,-25}           |");
     Console.WriteLine("===============================================================");
     for (int i = 0; i < menu.Length; i++)
     {
