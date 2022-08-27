@@ -265,7 +265,7 @@ void CreateNewOrder(Staff staff)
                 strQuantity = Console.ReadLine() ?? "";
                 isSuccess = int.TryParse(strQuantity, out quantity);
             }
-            if (quantity <= 0)
+            if (book.bookQuantity <= 0)
             {
                 Console.WriteLine("Thêm không thành công");
                 Console.WriteLine("Quyển sách này đã hết hàng!");
