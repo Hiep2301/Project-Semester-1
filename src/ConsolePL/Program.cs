@@ -157,6 +157,14 @@ void MenuStore(Staff staff)
 
             case 3:
                 Console.Clear();
+                List<Orders> orderList = new List<Orders>();
+                orderList = orderBl.GetAllOrderInDay();
+                if (orderList == null || orderList.Count == 0)
+                {
+                    Console.Clear();
+                    WaitForButton("Chưa có hóa đơn được tạo trong ngày hôm nay! Nhập phím bất kỳ để quay lại...");
+                    break;
+                }
                 Console.WriteLine("=================================================================================");
                 Console.WriteLine("|                               Lịch sử giao dịch                               |");
                 Console.WriteLine("=================================================================================");
