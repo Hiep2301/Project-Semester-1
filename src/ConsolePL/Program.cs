@@ -30,18 +30,27 @@ static string FormatCurrency(string currency)
 
 static bool IsContinue(string text)
 {
-    string Continue;
+    string input;
     bool isMatch;
     Console.Write(text);
-    Continue = Console.ReadLine() ?? "";
-    isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
-    while (!isMatch)
+    input = Console.ReadLine() ?? "";
+    isMatch = Regex.IsMatch(input, @"^[yYnN]$");
+    while (true)
     {
-        Console.Write(" Chọn (Y/N)!!!: ");
-        Continue = Console.ReadLine() ?? "";
-        isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
+        if (Regex.Match(input, @"^[yYnN]$").Success)
+        {
+            break;
+        }
+        else
+        {
+            Console.Write("Chọn (Y/N): ");
+            input = Console.ReadLine() ?? "";
+        }
     }
-    if (Continue == "y" || Continue == "Y") return true;
+    if (input == "y" || input == "Y")
+    {
+        return true;
+    }
     return false;
 }
 
@@ -105,24 +114,28 @@ void MainMenu()
         switch (choice)
         {
             case 1:
-                Console.Clear();
-                Console.WriteLine("===============================================================");
-                Console.WriteLine("|                          Đăng nhập                          |");
-                Console.WriteLine("===============================================================");
-                Console.Write("Tên đăng nhập: ");
-                string username = Console.ReadLine() ?? "";
-                Console.Write("Mật khẩu: ");
-                string pass = GetPassword();
-                Staff staff = new Staff() { userName = username, password = pass };
-                staff = staffBl.Login(staff);
-                if (staff.staffRole > 0)
+                while (true)
                 {
-                    MenuStore(staff);
-                }
-                else
-                {
-                    Console.WriteLine("Đăng nhập thất bại, vui lòng thử lại!");
-                    WaitForButton("Nhập phím bất kỳ để tiếp tục...");
+                    Console.Clear();
+                    Console.WriteLine("===============================================================");
+                    Console.WriteLine("|                          Đăng nhập                          |");
+                    Console.WriteLine("===============================================================");
+                    Console.Write("Tên đăng nhập: ");
+                    string username = Console.ReadLine() ?? "";
+                    Console.Write("Mật khẩu: ");
+                    string pass = GetPassword();
+                    Staff staff = new Staff() { userName = username, password = pass };
+                    staff = staffBl.Login(staff);
+                    if (staff.staffRole > 0)
+                    {
+                        MenuStore(staff);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Đăng nhập thất bại, vui lòng thử lại!");
+                        WaitForButton("Nhập phím bất kỳ để tiếp tục...");
+                    }
                 }
                 break;
 
@@ -165,14 +178,14 @@ void MenuStore(Staff staff)
                     WaitForButton("Chưa có hóa đơn được tạo trong ngày hôm nay! Nhập phím bất kỳ để quay lại...");
                     break;
                 }
-                Console.WriteLine("=================================================================================");
-                Console.WriteLine("|                               Lịch sử giao dịch                               |");
-                Console.WriteLine("=================================================================================");
-                Console.WriteLine("| Mã hóa đơn   Người tạo            Thời gian tạo             Tổng tiền         |");
-                Console.WriteLine("| ----------   --------------       -------------             ---------         |");
+                Console.WriteLine("=========================================================================================================");
+                Console.WriteLine("|                                           Lịch sử giao dịch                                           |");
+                Console.WriteLine("=========================================================================================================");
+                Console.WriteLine("| Mã hóa đơn   Người tạo             Khách hàng             Thời gian tạo             Tổng tiền         |");
+                Console.WriteLine("| ----------   --------------        --------------         -------------             ---------         |");
                 foreach (var item in orderBl.GetAllOrderInDay())
                 {
-                    Console.WriteLine($"| {item.orderId,-12} {staff.staffName,-20} {item.orderDate,-25} {FormatCurrency(item.total.ToString()),-17} |");
+                    Console.WriteLine($"| {item.orderId,-12} {item.staffName,-21} {item.customerName,-22} {item.orderDate,-25} {FormatCurrency(item.total.ToString()),-17} |");
 
                 }
                 Console.WriteLine("=================================================================================");
@@ -205,6 +218,11 @@ void MenuSearchBook()
         switch (choice)
         {
             case 1:
+                Console.Clear();
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("|                             Tìm kiếm sách theo id                             |");
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("Gợi ý từ khoá: \"1\", \"2\", \"3\", \"4\",...");
                 Console.Write("Nhập id để tìm kiếm: ");
                 string id = Console.ReadLine() ?? "";
                 bookBl.SearchBookByID(id);
@@ -212,7 +230,11 @@ void MenuSearchBook()
                 break;
 
             case 2:
-                Console.WriteLine("Gợi ý từ khoá: \"\", \"\", \"\", \"giả kim\",...");
+                Console.Clear();
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("|                             Tìm kiếm sách theo tên                            |");
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("Gợi ý từ khoá: \"tiếng anh\", \"tài chính\", \"sức khỏe\", \"giả kim\",...");
                 Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameBook = Console.ReadLine() ?? "";
                 string commandTextSearchByName = $"select book.book_id, book.book_name, book.author_name, book.book_price, book.book_description, book.book_quantity, category.category_name from book inner join category on book.category_id = category.category_id where book.book_name like concat('%', '{nameBook}', '%');";
@@ -221,6 +243,10 @@ void MenuSearchBook()
                 break;
 
             case 3:
+                Console.Clear();
+                Console.WriteLine("=================================================================================");
+                Console.WriteLine("|                          Tìm kiếm sách theo danh mục                          |");
+                Console.WriteLine("=================================================================================");
                 Console.WriteLine("Gợi ý từ khoá: \"văn học\", \"kinh tế\", \"thiếu nhi\", \"ngoại ngữ\",...");
                 Console.Write("Nhập từ khoá để tìm kiếm: ");
                 string nameCategory = Console.ReadLine() ?? "";
@@ -255,7 +281,7 @@ void CreateNewOrder(Staff staff)
         Console.Write("(Ví dụ: \"1\", \"2\", \"10\", \"21\",...): ");
         string id = Console.ReadLine() ?? "";
         Book book = bookBl.SearchBookByID(id);
-        if (book.bookId == 0)
+        if (book.bookId <= 0)
         {
             continue;
         }
@@ -301,21 +327,23 @@ void CreateNewOrder(Staff staff)
             }
             else
             {
-                for (int n = 0; n < order.booksList.Count; n++)
+                for (int i = 0; i < order.booksList.Count; i++)
                 {
-                    if (int.Parse(id) == order.booksList[n].bookId)
+                    if (int.Parse(id) == order.booksList[i].bookId)
                     {
-                        order.booksList[n].bookQuantity += quantity;
-                        order.booksList[n].bookAmount += amount;
+                        order.booksList[i].bookQuantity += quantity;
+                        order.booksList[i].bookAmount += amount;
                         add = false;
                     }
                 }
-                if (add) order.booksList.Add(book);
+                if (add)
+                {
+                    order.booksList.Add(book);
+                }
             }
         }
     } while (IsContinue("Bạn có muốn thêm sản phẩm khác vào hoá đơn không? (Y/N): "));
 
-    if (order.booksList == null || order.booksList.Count == 0) Console.WriteLine("Hoá đơn chưa có sản phẩm!");
     if (orderBl.CreateOrder(order))
     {
         Console.WriteLine("Tạo hoá đơn thành công!");
@@ -375,6 +403,7 @@ void CreateNewOrder(Staff staff)
     }
     else
     {
+        Console.WriteLine("Hoá đơn chưa có sản phẩm!");
         Console.WriteLine("Tạo hoá đơn thất bại!");
     }
     WaitForButton("Nhập phím bất kỳ để tiếp tục...");

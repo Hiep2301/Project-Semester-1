@@ -8,6 +8,7 @@ namespace DAL
     {
         private MySqlDataReader? reader;
         private MySqlConnection connection = DbConfig.GetConnection();
+
         public bool CreateOrder(Orders order)
         {
             if (order == null || order.booksList == null || order.booksList.Count == 0)
@@ -33,12 +34,25 @@ namespace DAL
                 {
                     Console.Write("Nhập số điện thoại khách hàng: ");
                     string customerPhone = Console.ReadLine() ?? "";
+                    while (true)
+                    {
+                        if (Regex.Match(customerPhone, @"^(\+[0-9])$").Success)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Số điện thoại không hợp lệ!");
+                            Console.Write("Nhập số điện thoại khách hàng: ");
+                            customerPhone = Console.ReadLine() ?? "";
+                        }
+
+                    }
                     cmd.CommandText = $"select * from customer where customer_phone = {customerPhone};";
                     reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        Console.WriteLine("Người mua là khách hàng cũ!");
-                        Console.WriteLine($"Tên khách hàng: {reader.GetString("customer_name")}");
+                        Console.WriteLine($"Khách hàng cũ: {reader.GetString("customer_name")}");
                         order.orderCustomer.customerPhone = reader.GetString("customer_phone");
                         order.orderCustomer.customerId = reader.GetInt32("customer_id");
                         order.orderCustomer.customerName = reader.GetString("customer_name");
@@ -136,7 +150,7 @@ namespace DAL
             {
                 connection.Open();
                 MySqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = $"select orders.order_id, orders.order_date, order_details.unit_price from orders inner join order_details on orders.order_id = order_details.order_id where day(order_date) + month(order_date) + year(order_date) = '{DateTime.Now.Day}' + '{DateTime.Now.Month}' + '{DateTime.Now.Year}';";
+                cmd.CommandText = $"select orders.order_id, orders.order_date, order_details.unit_price, staff.staff_name, customer.customer_name from orders inner join order_details on orders.order_id = order_details.order_id inner join staff on orders.staff_id = staff.staff_id inner join customer on orders.customer_id = customer.customer_id where day(order_date) + month(order_date) + year(order_date) = '{DateTime.Now.Day}' + '{DateTime.Now.Month}' + '{DateTime.Now.Year}';";
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -167,6 +181,8 @@ namespace DAL
         {
             Orders order = new Orders();
             order.orderCustomer = new Customer();
+            order.staffName = reader.GetString("staff_name");
+            order.customerName = reader.GetString("customer_name");
             order.orderId = reader.GetInt32("order_id");
             order.orderDate = reader.GetDateTime("order_date");
             order.total = reader.GetDecimal("unit_price");
@@ -175,18 +191,24 @@ namespace DAL
 
         private bool IsContinue(string text)
         {
-            string Continue;
+            string input;
             bool isMatch;
             Console.Write(text);
-            Continue = Console.ReadLine() ?? "";
-            isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
-            while (!isMatch)
+            input = Console.ReadLine() ?? "";
+            isMatch = Regex.IsMatch(input, @"^[yYnN]$");
+            while (true)
             {
-                Console.Write(" Chọn (Y/N)!!!: ");
-                Continue = Console.ReadLine() ?? "";
-                isMatch = Regex.IsMatch(Continue, @"^[yYnN]$");
+                if (Regex.Match(input, @"^[yYnN]$").Success)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.Write("Chọn (Y/N): ");
+                    input = Console.ReadLine() ?? "";
+                }
             }
-            if (Continue == "y" || Continue == "Y")
+            if (input == "y" || input == "Y")
             {
                 return true;
             }

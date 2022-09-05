@@ -20,7 +20,8 @@ create table if not exists staff(
 
 insert into staff(staff_name, staff_username, staff_password, staff_phone, staff_address, staff_role)
 values ('Ngô Trấn Hiệp', 'hiep2301', '5129d430ce2687db44d7cddcbee553c8', '0942878948', 'Hà Nội', 1),
-('Đặng Trần Phong', 'phong123', 'd54b0496bfa0446d31c45884ff19a41a', '0347341761', 'Phú Thọ', 1);
+('Đặng Trần Phong', 'phong123', 'd54b0496bfa0446d31c45884ff19a41a', '0347341761', 'Phú Thọ', 1),
+('Nguyễn Xuân Thức', 'thuc123', '1971bf7e39575d73077f5d8b52e59aa6', 'null', 'null', 1);
 
 create table if not exists category(
 	category_id int auto_increment primary key,

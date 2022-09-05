@@ -10,6 +10,8 @@ namespace Persistence
         public int orderId { get; set; }
         public Customer? orderCustomer { get; set; }
         public Staff? orderStaff { get; set; }
+        public string? staffName { get; set; }
+        public string? customerName { get; set; }
         public DateTime orderDate { get; set; }
         public int orderStatus { get; set; }
         public List<Book>? booksList { get; set; }

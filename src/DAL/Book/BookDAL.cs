@@ -44,38 +44,35 @@ namespace DAL
 
         public List<Book> GetBookList(List<Book> list, string commandText)
         {
-            lock (connection)
+            try
             {
-                try
+                connection.Open();
+                MySqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = commandText;
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
                 {
-                    connection.Open();
-                    MySqlCommand cmd = connection.CreateCommand();
-                    cmd.CommandText = commandText;
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        Book book = new Book();
-                        book.bookId = reader.GetInt32("book_id");
-                        book.bookName = reader.GetString("book_name");
-                        book.authorName = reader.GetString("author_name");
-                        book.bookPrice = reader.GetDecimal("book_price");
-                        book.bookDescription = reader.GetString("book_description");
-                        book.bookQuantity = reader.GetInt32("book_quantity");
-                        book.bookCategory = reader.GetString("category_name");
-                        list.Add(book);
-                    }
-                    reader.Close();
+                    Book book = new Book();
+                    book.bookId = reader.GetInt32("book_id");
+                    book.bookName = reader.GetString("book_name");
+                    book.authorName = reader.GetString("author_name");
+                    book.bookPrice = reader.GetDecimal("book_price");
+                    book.bookDescription = reader.GetString("book_description");
+                    book.bookQuantity = reader.GetInt32("book_quantity");
+                    book.bookCategory = reader.GetString("category_name");
+                    list.Add(book);
                 }
-                catch
-                {
-                    Console.WriteLine("Disconnected database");
-                }
-                finally
-                {
-                    connection.Close();
-                }
-                return list;
+                reader.Close();
             }
+            catch
+            {
+                Console.WriteLine("Disconnected database");
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return list;
         }
     }
 }

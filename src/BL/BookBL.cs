@@ -31,7 +31,6 @@ namespace BL
             if (list.Count == 0)
             {
                 Console.WriteLine("Không có sản phẩm!");
-                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
             }
             else
             {
@@ -76,10 +75,17 @@ namespace BL
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.Write("Chọn: ");
                     choice = Console.ReadLine() ?? "";
-                    while (!(Regex.IsMatch(choice, @"([PpNn]|[1-9]|^0$)")))
+                    while (true)
                     {
-                        Console.Write("Lựa chọn không hợp lệ! Chọn lại: ");
-                        choice = Console.ReadLine() ?? "";
+                        if (Regex.Match(choice, @"([PpNn]|[1-9]|^0$)").Success)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.Write("Lựa chọn không hợp lệ! Chọn lại: ");
+                            choice = Console.ReadLine() ?? "";
+                        }
                     }
                     choice = choice.Trim();
                     choice = choice.ToLower();
@@ -163,7 +169,6 @@ namespace BL
             if (list.Count == 0)
             {
                 Console.WriteLine($"Không tồn tại sản phẩm phù hợp với từ khoá là '{search}'");
-                WaitForButton("Nhập phím bất kỳ để tiếp tục...");
             }
             else
             {
@@ -208,10 +213,17 @@ namespace BL
                     Console.WriteLine("-----------------------------------------------------------------");
                     Console.Write("Chọn: ");
                     choice = Console.ReadLine() ?? "";
-                    while (!(Regex.IsMatch(choice, @"([PpNn]|[1-9]|^0$)")))
+                    while (true)
                     {
-                        Console.Write("Lựa chọn không hợp lệ! Chọn lại: ");
-                        choice = Console.ReadLine() ?? "";
+                        if (Regex.Match(choice, @"([PpNn]|[1-9]|^0$)").Success)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.Write("Lựa chọn không hợp lệ! Chọn lại: ");
+                            choice = Console.ReadLine() ?? "";
+                        }
                     }
                     choice = choice.Trim();
                     choice = choice.ToLower();

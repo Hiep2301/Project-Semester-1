@@ -23,6 +23,10 @@ namespace DAL
                     reader.Close();
                 }
             }
+            catch
+            {
+                Console.WriteLine("Disconnected database");
+            }
             finally
             {
                 connection.Close();
