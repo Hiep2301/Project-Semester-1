@@ -347,8 +347,8 @@ public class Program
         {
             Console.WriteLine("Tạo hoá đơn thành công!");
             WaitForButton("Nhập phím bất kỳ để xem hoá đơn...");
-            Console.Clear();
             string price, amount;
+            Console.Clear();
             Console.WriteLine("=================================================================================================");
             Console.WriteLine("|                                       Hoá đơn bán hàng                                        |");
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
@@ -402,6 +402,21 @@ public class Program
                 {
                     Console.WriteLine("Số tiền bạn nhập không đúng! Vui lòng nhập lại!");
                 }
+            }
+            Console.Clear();
+            Console.WriteLine("=================================================================================================");
+            Console.WriteLine("|                                       Hoá đơn bán hàng                                        |");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine($"| Thời gian: {order.orderDate,-61}   Mã hoá đơn: {order.orderId,6} |");
+            Console.WriteLine($"| Nhân viên bán hàng: {order.orderStaff.staffName,-41}              Địa chỉ: TP.Hà Nội |");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------");
+            Console.WriteLine("| Mặt hàng                                                            Đơn giá    SL      T.Tiền |");
+            foreach (Book book in order.booksList!)
+            {
+                price = FormatCurrency(book.bookPrice.ToString());
+                amount = FormatCurrency(book.bookAmount.ToString());
+                Console.WriteLine($"| {book.bookName,-65} {price,9} {book.bookQuantity,5} {amount,11} |");
+                order.total += book.bookAmount;
             }
             Console.WriteLine("-------------------------------------------------------------------------------------------------");
             Console.WriteLine($"|                                                        + Tổng tiền      : {total,15} VND |");
