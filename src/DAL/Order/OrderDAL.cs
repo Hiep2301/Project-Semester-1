@@ -36,7 +36,7 @@ namespace DAL
                     string customerPhone = Console.ReadLine() ?? "";
                     while (true)
                     {
-                        if (Regex.Match(customerPhone, @"^(\+[0-9])$").Success)
+                        if (Regex.Match(customerPhone, @"^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$").Success)
                         {
                             break;
                         }
@@ -46,7 +46,6 @@ namespace DAL
                             Console.Write("Nhập số điện thoại khách hàng: ");
                             customerPhone = Console.ReadLine() ?? "";
                         }
-
                     }
                     cmd.CommandText = $"select * from customer where customer_phone = {customerPhone};";
                     reader = cmd.ExecuteReader();
